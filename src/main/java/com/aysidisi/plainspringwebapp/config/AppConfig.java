@@ -13,18 +13,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
-import com.aysidisi.plainspringwebapp.config.SecurityConfig;
-import com.aysidisi.plainspringwebapp.config.SpringMongoConfig;
-import com.aysidisi.plainspringwebapp.config.TilesConfig;
-import com.aysidisi.plainspringwebapp.config.WebSocketConfig;
-
 @EnableWebMvc
 @Configuration
 @ComponentScan(
-		{ "com.aysidisi.plainspringwebapp.web.*" })
-@EnableMongoRepositories("com.aysidisi.plainspringwebapp.web.*")
+{ "com.aysidisi.*" })
+@EnableMongoRepositories("com.aysidisi.*")
 @Import(
-		{ SecurityConfig.class, SpringMongoConfig.class, TilesConfig.class, WebSocketConfig.class })
+{ SecurityConfig.class, SpringMongoConfig.class, TilesConfig.class, WebSocketConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter
 {
 	@Override
@@ -32,7 +27,7 @@ public class AppConfig extends WebMvcConfigurerAdapter
 	{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
-
+	
 	@Bean
 	public ViewResolver viewResolver()
 	{
