@@ -6,12 +6,12 @@
     <script src="../resources/javascript/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript">
 		var tileSize = 130;
+		var tileDrawSize = 80;
 		var terrainSheet = new Image();
 		terrainSheet.src = "../resources/images/terrain.png";
 		var raiderSheet = new Image();
 		raiderSheet.src = "../resources/images/raider.png";
-		
-		
+		var map;
 		var canvas;
 		var context;
 		function connect() {
@@ -26,15 +26,21 @@
 		
 		function updateGameMap(response)
 		{
-			for(var c = 0; c<response.length; c++)
+			map = response;
+			drawMap();
+		}
+		
+		function drawMap()
+		{
+			for(var c = 0; c<map.length; c++)
     		{
-        		var field = response[c];
-        		context.drawImage(terrainSheet, field.fieldTypeId * tileSize, 0, tileSize, tileSize, field.positionX * 80, field.positionY * 80, 80, 80);
+        		var field = map[c];
+        		context.drawImage(terrainSheet, field.fieldTypeId * tileSize, 0, tileSize, tileSize, field.positionX * tileDrawSize, field.positionY * tileDrawSize, tileDrawSize, tileDrawSize);
         		if(field.raiderIds != null)
         		{
         			if(field.raiderIds.length > 0)
 	        		{
-	        			context.drawImage(raiderSheet, 0, 0, tileSize, tileSize, field.positionX * 80, field.positionY * 80, 80, 80);
+	        			context.drawImage(raiderSheet, 0, 0, tileSize, tileSize, field.positionX * tileDrawSize, field.positionY * tileDrawSize, tileDrawSize, tileDrawSize);
 	        		}
         		}
     		}
@@ -45,8 +51,56 @@
 			context = canvas.getContext("2d");
 		    connect();
 		    initMap();
+		    $("#myCanvas").mousemove(function(event){
+		    	var xpos = 0;
+		    	var ypos = 0;
+		    	if(event.offsetX==undefined)
+		    	  {
+		    	    xpos = event.pageX-$('#myCanvas').offset().left;
+		    	    ypos = event.pageY-$('#myCanvas').offset().top;
+		    	  }             
+		    	  else
+		    	  {
+		    	    xpos = event.offsetX;
+		    	    ypos = event.offsetY;
+		    	  }
+		    	xpos = parseInt(xpos / tileDrawSize) * tileDrawSize;
+		    	ypos = parseInt(ypos / tileDrawSize) * tileDrawSize; 
+		    	drawMap();
+		    	context.beginPath();
+		    	context.moveTo(xpos, ypos);
+		    	context.lineTo(xpos + tileDrawSize, ypos);
+		    	context.lineTo(xpos + tileDrawSize, ypos + tileDrawSize);
+		    	context.lineTo(xpos, ypos + tileDrawSize);
+		    	context.lineTo(xpos, ypos);
+		    	context.stroke();
+			});
+		    $("#myCanvas").click(function(event){
+		    	var position = getRelativeMouseCoord(event);
+		    	alert(position.x + ":" + position.y);
+		    });
 		});
 		
+		function getRelativeMouseCoord(event)
+		{
+			var xpos = 0;
+	    	var ypos = 0;
+	    	if(event.offsetX==undefined)
+	    	  {
+	    	    xpos = event.pageX-$('#myCanvas').offset().left;
+	    	    ypos = event.pageY-$('#myCanvas').offset().top;
+	    	  }             
+	    	  else
+	    	  {
+	    	    xpos = event.offsetX;
+	    	    ypos = event.offsetY;
+	    	  }
+	    	xpos = parseInt(xpos / tileDrawSize);
+	    	ypos = parseInt(ypos / tileDrawSize);
+	    	var position = {x : xpos, y : ypos};
+	    	return position;
+		}
+		    
 		function initMap()
 		{
 			 $.ajax({
@@ -57,7 +111,7 @@
 			        }
 			    });
 		}
-		$(window).keyup(function(e)
+		$(document).keyup(function(e)
 		{
 			e.stopPropagation();
 			var key = e.keyCode ? e.keyCode : e.which;
@@ -80,7 +134,12 @@
 	</script>
 <table>
 	<tr>
-		<td colspan="2"><canvas id="myCanvas" width="880" height="880"	></canvas></td>
+		<td>
+			<div id="testDiv"></div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><canvas id="myCanvas" width="880" height="880"></canvas></td>
 	</tr>
 </table>
 </body>
