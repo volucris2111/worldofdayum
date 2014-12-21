@@ -18,7 +18,7 @@
 	        var socket = new SockJS('/dungeonlordsandraiders/dungeonlordsandraiders');
 	        stompClient = Stomp.over(socket);
 	        stompClient.connect({}, function(frame) {
-	            stompClient.subscribe('/dungeon/updatedungeon', function(map){
+	            stompClient.subscribe('/user/dungeon/updatedungeon', function(map){
 	            	updateGameMap(JSON.parse(map.body));
 	            });
 	        });
@@ -32,15 +32,16 @@
 		
 		function drawMap()
 		{
+			context.clearRect(0, 0, canvas.width, canvas.height);
 			for(var c = 0; c<map.length; c++)
     		{
         		var field = map[c];
-        		context.drawImage(terrainSheet, field.fieldTypeId * tileSize, 0, tileSize, tileSize, field.positionX * tileDrawSize, field.positionY * tileDrawSize, tileDrawSize, tileDrawSize);
+        		context.drawImage(terrainSheet, field.fieldTypeId * tileSize, 0, tileSize, tileSize, field.relativePositionX * tileDrawSize, field.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
         		if(field.raiderIds != null)
         		{
         			if(field.raiderIds.length > 0)
 	        		{
-	        			context.drawImage(raiderSheet, 0, 0, tileSize, tileSize, field.positionX * tileDrawSize, field.positionY * tileDrawSize, tileDrawSize, tileDrawSize);
+	        			context.drawImage(raiderSheet, 0, 0, tileSize, tileSize, field.relativePositionX * tileDrawSize, field.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
 	        		}
         		}
     		}
@@ -52,20 +53,9 @@
 		    connect();
 		    initMap();
 		    $("#myCanvas").mousemove(function(event){
-		    	var xpos = 0;
-		    	var ypos = 0;
-		    	if(event.offsetX==undefined)
-		    	  {
-		    	    xpos = event.pageX-$('#myCanvas').offset().left;
-		    	    ypos = event.pageY-$('#myCanvas').offset().top;
-		    	  }             
-		    	  else
-		    	  {
-		    	    xpos = event.offsetX;
-		    	    ypos = event.offsetY;
-		    	  }
-		    	xpos = parseInt(xpos / tileDrawSize) * tileDrawSize;
-		    	ypos = parseInt(ypos / tileDrawSize) * tileDrawSize; 
+		    	var position = getRelativeMouseCoord(event);
+		    	var xpos = position.x * tileDrawSize;
+		    	var ypos = position.y * tileDrawSize; 
 		    	drawMap();
 		    	context.beginPath();
 		    	context.moveTo(xpos, ypos);
@@ -76,8 +66,8 @@
 		    	context.stroke();
 			});
 		    $("#myCanvas").click(function(event){
-		    	var position = getRelativeMouseCoord(event);
-		    	alert(position.x + ":" + position.y);
+		    	var clickTest = getRelativeMouseCoord(event);
+		    	stompClient.send("/app/move/mouse", {}, JSON.stringify(clickTest));
 		    });
 		});
 		
@@ -118,7 +108,7 @@
 			if(key == 38 || key == 40 || key == 37 || key == 39)
 			{
 				e.preventDefault();
-				stompClient.send("/app/move", {}, key);
+				stompClient.send("/app/move/keyboard", {}, key);
 			}
 		});
 		$(document).keydown(function(e)
@@ -139,7 +129,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2"><canvas id="myCanvas" width="880" height="880"></canvas></td>
+		<td colspan="2"><canvas id="myCanvas" width="560" height="560"></canvas></td>
 	</tr>
 </table>
 </body>

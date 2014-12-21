@@ -12,9 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Controller;
 
 import com.aysidisi.dungeonlordsandraiders.dungeon.model.DungeonField;
+import com.aysidisi.dungeonlordsandraiders.dungeon.model.MovementPojo;
 import com.aysidisi.dungeonlordsandraiders.dungeon.service.DungeonFieldService;
 import com.aysidisi.dungeonlordsandraiders.raider.model.Raider;
 import com.aysidisi.dungeonlordsandraiders.raider.service.RaiderService;
+import com.aysidisi.plainspringwebapp.config.cache.WebSocketSessionCache;
 import com.aysidisi.plainspringwebapp.web.account.model.Account;
 
 @Controller
@@ -29,7 +31,7 @@ public class DungeonWebsocket
 	@Autowired
 	private RaiderService raiderService;
 	
-	@MessageMapping("/move")
+	@MessageMapping("/move/keyboard")
 	public void movement(final Integer key, final SimpMessageHeaderAccessor headerAccessor)
 	{
 		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) headerAccessor
@@ -85,11 +87,44 @@ public class DungeonWebsocket
 			}
 		}
 	}
+	
+	@MessageMapping("/move/mouse")
+	public void movement(final MovementPojo movement, final SimpMessageHeaderAccessor headerAccessor)
+	{
+		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) headerAccessor
+				.getUser();
+		Account account = (Account) token.getPrincipal();
+		Raider raider = this.raiderService.findByOwnerAccoundId(account.getId());
+		DungeonField dungeonFieldMovedFrom = this.dungeonFieldService.findOne(raider.getFieldId());
+		DungeonField dungeonFieldMovedTo = this.dungeonFieldService.findByPositionXAndPositionY(
+				dungeonFieldMovedFrom.getPositionX() + (movement.getX() - 3),
+				dungeonFieldMovedFrom.getPositionY() + (movement.getY() - 3));
+		if (dungeonFieldMovedTo != null && dungeonFieldMovedTo.getFieldTypeId() != 2)
+		{
+			raider.setFieldId(dungeonFieldMovedTo.getId());
+			dungeonFieldMovedFrom.getRaiderIds().remove(raider.getId());
+			if (dungeonFieldMovedTo.getRaiderIds() == null)
+			{
+				dungeonFieldMovedTo.setRaiderIds(new LinkedList<BigInteger>());
+			}
+			dungeonFieldMovedTo.getRaiderIds().add(raider.getId());
+			this.raiderService.save(raider);
+			this.dungeonFieldService.save(dungeonFieldMovedTo);
+			this.dungeonFieldService.save(dungeonFieldMovedFrom);
+			this.updateGameMap();
+		}
+	}
 
 	public void updateGameMap()
 	{
-		this.messagingTemplate.convertAndSend("/dungeon/updatedungeon",
-				this.dungeonFieldService.findAll());
+		for (Account account : WebSocketSessionCache.getInstance()
+				.getWebSocketSessionCacheBySubject("/user/dungeon/updatedungeon").values())
+		{
+			this.messagingTemplate.convertAndSendToUser(account.getName(),
+					"/dungeon/updatedungeon", this.dungeonFieldService
+							.getRelativeDungeonMapForRaider(this.raiderService
+									.findByOwnerAccoundId(account.getId())));
+		}
+		
 	}
-	
 }
