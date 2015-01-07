@@ -3,7 +3,7 @@
 
 <html>
 	<body>
-		<c:if test="${not empty errors}">
+		<c:if test="${not empty errors}"> 
 				<table>
 			<c:forEach items="${errors}" var="error">
 				<tr>

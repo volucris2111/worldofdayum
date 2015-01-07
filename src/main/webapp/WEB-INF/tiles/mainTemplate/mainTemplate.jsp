@@ -6,6 +6,7 @@
 <html>
 <head>
 <title>ProjectBrowserGameSpring</title>
+<script src="${pageContext.request.contextPath}/resources/javascript/jquery-2.1.1.min.js"></script>
 </head>
 <body>
 	<table>

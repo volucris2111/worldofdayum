@@ -25,8 +25,8 @@ public class SpringMongoConfig extends AbstractMongoConfiguration
 		ServerAddress address = new ServerAddress("127.0.0.1", 27017);
 		serverAdresses.add(address);
 		List<MongoCredential> credentials = new LinkedList<MongoCredential>();
-		MongoCredential credential = MongoCredential.createMongoCRCredential(
-				"admin", "nicedb", "admin".toCharArray());
+		MongoCredential credential = MongoCredential.createMongoCRCredential("dayum", "dayumdb",
+				"1234".toCharArray());
 		credentials.add(credential);
 		MongoClient mongoClient = new MongoClient(address, credentials);
 		return mongoClient;
@@ -36,12 +36,12 @@ public class SpringMongoConfig extends AbstractMongoConfiguration
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception
 	{
-		return new MongoTemplate(mongo(), getDatabaseName());
+		return new MongoTemplate(this.mongo(), this.getDatabaseName());
 	}
 	
 	@Override
 	protected String getDatabaseName()
 	{
-		return "nicedb";
+		return "dayumdb";
 	}
 }

@@ -1,0 +1,150 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
+<body>
+	<script src="../resources/javascript/sockjs-0.3.4.min.js"></script>
+    <script src="../resources/javascript/stomp.min.js"></script>
+	<script type="text/javascript">
+		var tileSize = 130;
+		var tileDrawSize = 80;
+		var terrainSheet = new Image();
+		terrainSheet.src = "../resources/images/terrain.png";
+		var avatarSheet = new Image();
+		avatarSheet.src = "../resources/images/avatar.png";
+		var map;
+		var avatars;
+		var canvas;
+		var context;
+		function connect() {
+	        var socket = new SockJS('/worldofdayum/worldofdayum');
+	        stompClient = Stomp.over(socket);
+	        stompClient.connect({}, function(frame) {
+	            stompClient.subscribe('/user/adventure/updateavatars', function(avatars){
+	            	updateAvatars(JSON.parse(avatars.body));
+	            });
+	        });
+	    }
+		
+		function updateAvatars(response)
+		{
+			avatars = response;
+			drawMap();
+		}
+		
+		function updateFields(response)
+		{
+			map = response;
+			drawMap();
+		}
+		
+		function drawMap()
+		{
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			for(var c = 0; c < map.length; c++)
+    		{
+        		var field = map[c];
+        		context.drawImage(terrainSheet, field.sheetPositionX, field.sheetPositionY, tileSize, tileSize, field.relativePositionX * tileDrawSize, field.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
+    		}
+			for(var c = 0; c < avatars.length; c++)
+    		{
+        		var avatar = avatars[c];
+        		context.drawImage(avatarSheet, 0, 0, tileSize, tileSize, avatar.relativePositionX * tileDrawSize, avatar.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
+    		}
+		}
+		
+		$(function() {
+			canvas = document.getElementById("myCanvas");
+			context = canvas.getContext("2d");
+		    connect();
+		    initAvatars();
+		    getMap();
+		    $("#myCanvas").mousemove(function(event){
+		    	var position = getRelativeMouseCoord(event);
+		    	var xpos = position.x * tileDrawSize;
+		    	var ypos = position.y * tileDrawSize; 
+		    	drawMap();
+		    	context.beginPath();
+		    	context.moveTo(xpos, ypos);
+		    	context.lineTo(xpos + tileDrawSize, ypos);
+		    	context.lineTo(xpos + tileDrawSize, ypos + tileDrawSize);
+		    	context.lineTo(xpos, ypos + tileDrawSize);
+		    	context.lineTo(xpos, ypos);
+		    	context.stroke();
+			});
+		    $("#myCanvas").click(function(event){
+		    	var clickTest = getRelativeMouseCoord(event);
+		    	stompClient.send("/app/move/mouse", {}, JSON.stringify(clickTest));
+		    	getMap();
+		    });
+		});
+		
+		function getRelativeMouseCoord(event)
+		{
+			var xpos = 0;
+	    	var ypos = 0;
+	    	if(event.offsetX==undefined)
+	    	  {
+	    	    xpos = event.pageX-$('#myCanvas').offset().left;
+	    	    ypos = event.pageY-$('#myCanvas').offset().top;
+	    	  }             
+	    	  else
+	    	  {
+	    	    xpos = event.offsetX;
+	    	    ypos = event.offsetY;
+	    	  }
+	    	xpos = parseInt(xpos / tileDrawSize);
+	    	ypos = parseInt(ypos / tileDrawSize);
+	    	var position = {x : xpos, y : ypos};
+	    	return position;
+		}
+		    
+		function getMap()
+		{
+			 $.ajax({
+			        url: '${pageContext.request.contextPath}/adventure/mapcluster',
+			        type: "GET",
+			        success: function(data) {
+			        	updateFields(data);
+			        }
+			    });
+		}
+		
+		function initAvatars()
+		{
+			 $.ajax({
+			        url: '${pageContext.request.contextPath}/adventure/avatars',
+			        type: "GET",
+			        success: function(data) {
+			        	avatars = data;
+			        }
+			    });
+		}
+		
+		$(document).keyup(function(e)
+		{
+			e.stopPropagation();
+			var key = e.keyCode ? e.keyCode : e.which;
+			if(key == 38 || key == 40 || key == 37 || key == 39)
+			{
+				e.preventDefault();
+				stompClient.send("/app/move/keyboard", {}, key);
+				getMap();
+			}
+		});
+		$(document).keydown(function(e)
+		{
+		    e.stopPropagation();
+		    if (e.keyCode === 40) {
+		        e.preventDefault();
+		    } else if (e.keyCode === 38) {
+		        e.preventDefault();
+
+		    }
+		});
+	</script>
+<table>
+	<tr>
+		<td colspan="2"><canvas id="myCanvas" width="560" height="560"></canvas></td>
+	</tr>
+</table>
+</body>
+</html>

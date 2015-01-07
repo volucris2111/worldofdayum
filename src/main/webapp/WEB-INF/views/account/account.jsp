@@ -10,7 +10,7 @@
 						<td>
 							${error}
 						</td>
-					</tr>
+					</tr> 
 				</c:forEach>
 			</table>
 		</c:if>

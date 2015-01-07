@@ -3,7 +3,7 @@
 
 <html>
 	<body>
-		<c:if test="${not empty errors}">
+		<c:if test="${not empty errors}"> 
 				<table>
 			<c:forEach items="${errors}" var="error">
 				<tr>
@@ -18,7 +18,7 @@
 		<form:form action="${logoutUrl}" method="post" modelAttribute="account" >
 			<table>
 				<tr>
-					<td>Accountname:</td><td><form:input path="name"/></td>
+					<td><form:label  path="name">Accountname:</form:label></td><td><form:input path="name"/></td>
 				</tr>
 				<tr>
 					<td>Passwort:</td><td><form:password path="password" id="firstPassword"/></td>

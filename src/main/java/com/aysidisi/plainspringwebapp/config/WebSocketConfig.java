@@ -19,25 +19,25 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer
 	{
 		registration.setInterceptors(new CustomChannelInterceptor());
 	}
-	
+
 	@Override
 	public void configureClientOutboundChannel(final ChannelRegistration registration)
 	{
 		registration.setInterceptors(new CustomChannelInterceptor());
 	}
-	
+
 	@Override
 	public void configureMessageBroker(final MessageBrokerRegistry registry)
 	{
-		registry.enableSimpleBroker("/dungeon");
+		registry.enableSimpleBroker("/adventure");
 		registry.setApplicationDestinationPrefixes("/app");
 	}
-	
+
 	@Override
 	public void registerStompEndpoints(final StompEndpointRegistry registry)
 	{
 		registry.addEndpoint("/chatreg").withSockJS();
-		registry.addEndpoint("/dungeonlordsandraiders").withSockJS();
+		registry.addEndpoint("/worldofdayum").withSockJS();
 	}
-
+	
 }

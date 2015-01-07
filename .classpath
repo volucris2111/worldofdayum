@@ -77,6 +77,26 @@
       <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/security/spring-security-config/3.2.5.RELEASE/spring-security-config-3.2.5.RELEASE-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-taglibs/3.2.5.RELEASE/spring-security-taglibs-3.2.5.RELEASE.jar" sourcepath="M2_REPO/org/springframework/security/spring-security-taglibs/3.2.5.RELEASE/spring-security-taglibs-3.2.5.RELEASE-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/security/spring-security-taglibs/3.2.5.RELEASE/spring-security-taglibs-3.2.5.RELEASE-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-acl/3.2.5.RELEASE/spring-security-acl-3.2.5.RELEASE.jar" sourcepath="M2_REPO/org/springframework/security/spring-security-acl/3.2.5.RELEASE/spring-security-acl-3.2.5.RELEASE-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/security/spring-security-acl/3.2.5.RELEASE/spring-security-acl-3.2.5.RELEASE-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-jdbc/3.2.8.RELEASE/spring-jdbc-3.2.8.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-jdbc/3.2.8.RELEASE/spring-jdbc-3.2.8.RELEASE-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/spring-jdbc/3.2.8.RELEASE/spring-jdbc-3.2.8.RELEASE-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-tx/4.0.7.RELEASE/spring-tx-4.0.7.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-tx/4.0.7.RELEASE/spring-tx-4.0.7.RELEASE-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/spring-tx/4.0.7.RELEASE/spring-tx-4.0.7.RELEASE-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7-sources.jar">
     <attributes>
       <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7-javadoc.jar!/" name="javadoc_location"/>
@@ -103,11 +123,6 @@
       <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/data/spring-data-mongodb/1.6.1.RELEASE/spring-data-mongodb-1.6.1.RELEASE-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-tx/4.0.7.RELEASE/spring-tx-4.0.7.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-tx/4.0.7.RELEASE/spring-tx-4.0.7.RELEASE-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/spring-tx/4.0.7.RELEASE/spring-tx-4.0.7.RELEASE-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
   <classpathentry kind="var" path="M2_REPO/org/springframework/data/spring-data-commons/1.9.1.RELEASE/spring-data-commons-1.9.1.RELEASE.jar" sourcepath="M2_REPO/org/springframework/data/spring-data-commons/1.9.1.RELEASE/spring-data-commons-1.9.1.RELEASE-sources.jar">
     <attributes>
       <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/data/spring-data-commons/1.9.1.RELEASE/spring-data-commons-1.9.1.RELEASE-javadoc.jar!/" name="javadoc_location"/>
@@ -131,11 +146,6 @@
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-orm/3.2.9.RELEASE/spring-orm-3.2.9.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-orm/3.2.9.RELEASE/spring-orm-3.2.9.RELEASE-sources.jar">
     <attributes>
       <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/spring-orm/3.2.9.RELEASE/spring-orm-3.2.9.RELEASE-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/springframework/spring-jdbc/3.2.9.RELEASE/spring-jdbc-3.2.9.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-jdbc/3.2.9.RELEASE/spring-jdbc-3.2.9.RELEASE-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/Users/Volucris/.m2/repository/org/springframework/spring-jdbc/3.2.9.RELEASE/spring-jdbc-3.2.9.RELEASE-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjrt/1.8.0/aspectjrt-1.8.0.jar" sourcepath="M2_REPO/org/aspectj/aspectjrt/1.8.0/aspectjrt-1.8.0-sources.jar">
