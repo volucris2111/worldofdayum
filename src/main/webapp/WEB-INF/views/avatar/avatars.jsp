@@ -9,35 +9,22 @@
 					Avatar
 				</th>
 				<th>
-					Beruf
-				</th>
-				<th>
 					&nbsp;
 				</th>
 				<th>
 					&nbsp;
 				</th>
 			</tr>
-			<c:forEach items="${avatarViews}" var="avatarView">
+			<c:forEach items="${avatars}" var="avatar">
 				<tr>
 					<td>
-						${avatarView.avatar.name}
+						${avatar.name}
 					</td>
 					<td>
-						<c:choose>
-							<c:when test="${avatarView.avatar.male}">
-								${avatarView.avatarClass.nameMale}
-							</c:when>
-							<c:otherwise>
-								${avatarView.avatarClass.nameFemale}
-							</c:otherwise>
-						</c:choose>
+						<a href="${pageContext.request.contextPath}/avatars/${avatar.id}"><button>Details</button></a>
 					</td>
 					<td>
-						<a href="${pageContext.request.contextPath}/avatars/${avatarView.avatar.id}"><button>Details</button></a>
-					</td>
-					<td>
-						<a href="${pageContext.request.contextPath}/avatars/select/${avatarView.avatar.id}"><button>Auswählen</button></a>
+						<a href="${pageContext.request.contextPath}/avatars/select/${avatar.id}"><button>Auswählen</button></a>
 					</td>
 				</tr>		
 			</c:forEach>

@@ -1,6 +1,9 @@
 
 package com.aysidisi.worldofdayum.adventure.websocket;
 
+import java.math.BigInteger;
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -22,22 +25,23 @@ public class AdventureMapWebsocket
 {
 	@Autowired
 	private AvatarService avatarService;
-
+	
 	@Autowired
 	private FieldService fieldService;
-	
-	@Autowired
-	private FieldTypeService fieldTypeService;
 
 	@Autowired
-	private SimpMessageSendingOperations messagingTemplate;
+	private FieldTypeService fieldTypeService;
 	
+	@Autowired
+	private SimpMessageSendingOperations messagingTemplate;
+
 	@MessageMapping("/move/keyboard")
 	public void movement(final Integer key, final SimpMessageHeaderAccessor headerAccessor)
 	{
 		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) headerAccessor
 				.getUser();
 		Account account = (Account) token.getPrincipal();
+		HashSet<BigInteger> avatars = new HashSet<BigInteger>();
 		Avatar avatar = this.avatarService.findOne(account.getCurrentAvatarId());
 		if (avatar != null)
 		{
@@ -68,16 +72,25 @@ public class AdventureMapWebsocket
 			}
 			if (dungeonFieldMovedTo != null
 					&& this.fieldTypeService.findById(dungeonFieldMovedTo.getFieldTypeId())
-							.getWalkable())
+					.getWalkable())
 			{
+				for (Avatar currentAvatar : this.avatarService.getAvatarsNearAvatar(avatar))
+				{
+					avatars.add(currentAvatar.getId());
+				}
 				avatar.setPositionX(dungeonFieldMovedTo.getPositionX());
 				avatar.setPositionY(dungeonFieldMovedTo.getPositionY());
 				this.avatarService.save(avatar);
-				this.updateAvatars();
+				for (Avatar currentAvatar : this.avatarService.getAvatarsNearAvatar(avatar))
+				{
+					avatars.add(currentAvatar.getId());
+				}
+				this.updateMap(account, avatar);
+				this.updateAvatars(avatars);
 			}
 		}
 	}
-	
+
 	@MessageMapping("/move/mouse")
 	public void movement(final MovementPojo movement, final SimpMessageHeaderAccessor headerAccessor)
 	{
@@ -85,30 +98,48 @@ public class AdventureMapWebsocket
 				.getUser();
 		Account account = (Account) token.getPrincipal();
 		Avatar avatar = this.avatarService.findOne(account.getCurrentAvatarId());
+		HashSet<BigInteger> avatars = new HashSet<BigInteger>();
 		Field dungeonFieldMovedTo = this.fieldService.findByPositionXAndPositionYAndAreaId(
 				avatar.getPositionX() + (movement.getX() - 3),
 				avatar.getPositionY() + (movement.getY() - 3), avatar.getAreaId());
 		if (dungeonFieldMovedTo != null
 				&& this.fieldTypeService.findById(dungeonFieldMovedTo.getFieldTypeId())
-						.getWalkable())
+				.getWalkable())
 		{
+			for (Avatar currentAvatar : this.avatarService.getAvatarsNearAvatar(avatar))
+			{
+				avatars.add(currentAvatar.getId());
+			}
 			avatar.setPositionX(dungeonFieldMovedTo.getPositionX());
 			avatar.setPositionY(dungeonFieldMovedTo.getPositionY());
 			this.avatarService.save(avatar);
-			this.updateAvatars();
+			for (Avatar currentAvatar : this.avatarService.getAvatarsNearAvatar(avatar))
+			{
+				avatars.add(currentAvatar.getId());
+			}
+			this.updateMap(account, avatar);
+			this.updateAvatars(avatars);
 		}
 	}
-	
-	public void updateAvatars()
+
+	public void updateAvatars(final HashSet<BigInteger> avatarIdsToUpdate)
 	{
 		for (Account account : WebSocketSessionCache.getInstance()
 				.getWebSocketSessionCacheBySubject("/user/adventure/updateavatars").values())
 		{
-			this.messagingTemplate.convertAndSendToUser(account.getName(),
-					"/adventure/updateavatars", this.avatarService
-							.getAvatarPojosNearAvatar(this.avatarService.findOne(account
-									.getCurrentAvatarId())));
+			if (avatarIdsToUpdate.contains(account.getCurrentAvatarId()))
+			{
+				this.messagingTemplate.convertAndSendToUser(account.getName(),
+						"/adventure/updateavatars", this.avatarService
+								.getAvatarPojosNearAvatar(this.avatarService.findOne(account
+										.getCurrentAvatarId())));
+			}
 		}
-		
+	}
+	
+	public void updateMap(final Account account, final Avatar avatar)
+	{
+		this.messagingTemplate.convertAndSendToUser(account.getName(), "/adventure/updatemap",
+				this.fieldService.getRelativeAdventureMapForAvatar(avatar));
 	}
 }

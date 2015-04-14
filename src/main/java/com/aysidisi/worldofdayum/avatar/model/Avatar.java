@@ -15,23 +15,21 @@ import com.aysidisi.worldofdayum.skill.model.Skill;
 public class Avatar
 {
 
-	private Integer areaId;
-	
-	private BigInteger avatarClassId;
-	
-	private Integer charisma;
+	private Integer areaId = 0;
 
-	private Integer constitution;
+	private Integer charisma = 1;
 
-	private Integer dexterity;
+	private Integer constitution = 1;
+
+	private Integer dexterity = 1;
 
 	@Id
 	@GeneratedValue
 	private BigInteger id;
 	
-	private Integer intelligence;
+	private Integer intelligence = 1;
 	
-	private Integer knowledge;
+	private Integer knowledge = 1;
 
 	private Boolean mainAvatar;
 
@@ -41,26 +39,21 @@ public class Avatar
 
 	private BigInteger ownerAccountId;
 	
-	private Integer positionX;
+	private Integer positionX = 0;
 	
-	private Integer positionY;
+	private Integer positionY = 0;
 
 	private HashMap<Skill, AvatarSkill> skills;
 
-	private Integer strength;
+	private Integer strength = 1;
 
-	private Integer willpower;
+	private Integer willpower = 1;
 
 	public Integer getAreaId()
 	{
 		return this.areaId;
 	}
-
-	public BigInteger getAvatarClassId()
-	{
-		return this.avatarClassId;
-	}
-
+	
 	public Integer getCharisma()
 	{
 		return this.charisma;
@@ -140,12 +133,7 @@ public class Avatar
 	{
 		this.areaId = areaId;
 	}
-
-	public void setAvatarClassId(final BigInteger avatarClassId)
-	{
-		this.avatarClassId = avatarClassId;
-	}
-
+	
 	public void setCharisma(final Integer charisma)
 	{
 		this.charisma = charisma;

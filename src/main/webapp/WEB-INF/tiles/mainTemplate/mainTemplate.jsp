@@ -7,6 +7,9 @@
 <head>
 <title>ProjectBrowserGameSpring</title>
 <script src="${pageContext.request.contextPath}/resources/javascript/jquery-2.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/javascript/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="../resources/css/jquery-ui.css">
+<link rel="stylesheet" href="../resources/css/theme.css">
 </head>
 <body>
 	<table>

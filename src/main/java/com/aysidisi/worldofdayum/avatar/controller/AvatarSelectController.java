@@ -1,5 +1,5 @@
 
-package com.aysidisi.worldofdayum.avatarclass.controller;
+package com.aysidisi.worldofdayum.avatar.controller;
 
 import java.math.BigInteger;
 
@@ -22,10 +22,10 @@ public class AvatarSelectController
 {
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private AvatarService avatarService;
-
+	
 	@RequestMapping(value = "/avatars/select/{avatarId}", method = RequestMethod.GET)
 	public ModelAndView select(@PathVariable final BigInteger avatarId)
 	{
@@ -35,13 +35,13 @@ public class AvatarSelectController
 		Account account = (Account) authentication.getPrincipal();
 		if (!avatar.getOwnerAccountId().equals(account.getId()))
 		{
-			modelAndView = new ModelAndView("redirect:/avatars");
+			modelAndView = new ModelAndView("redirect:/avatars/");
 		}
 		else
 		{
 			account.setCurrentAvatarId(avatarId);
 			this.accountService.save(account);
-			modelAndView = new ModelAndView("redirect:/adventure");
+			modelAndView = new ModelAndView("redirect:/adventure/");
 		}
 		return modelAndView;
 	}

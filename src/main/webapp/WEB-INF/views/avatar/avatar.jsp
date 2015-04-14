@@ -9,7 +9,7 @@
 					Name:
 				</td>
 				<td>
-					 ${avatarView.avatar.name}
+					 ${avatar.name}
 				</td>
 			</tr>
 			<tr>
@@ -18,7 +18,7 @@
 				</td>
 				<td>
 					<c:choose>
-							<c:when test="${avatarView.avatar.male}">
+							<c:when test="${avatar.male}">
 								Männlich
 							</c:when>
 							<c:otherwise>
@@ -29,22 +29,7 @@
 			</tr>
 			<tr>
 				<td>
-					Beruf:
-				</td>
-				<td>
-					<c:choose>
-						<c:when test="${avatarView.avatar.male}">
-							${avatarView.avatarClass.nameMale}
-						</c:when>
-						<c:otherwise>
-							${avatarView.avatarClass.nameFemale}
-						</c:otherwise>
-					</c:choose>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a href="${pageContext.request.contextPath}/avatars/select/${avatarView.avatar.id}"><button>Auswählen</button></a>
+					<a href="${pageContext.request.contextPath}/avatars/select/${avatar.id}"><button>Auswählen</button></a>
 				</td>
 				<td>
 					<a href="${pageContext.request.contextPath}/avatars/"><button>Zurück</button></a>

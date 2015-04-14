@@ -55,7 +55,7 @@ public class CreateAccountController
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 			account.setAuthorities(authorities);
 			account.setEnabled(true);
-			this.accountService.save(account);
+			this.accountService.saveOnlyEditableFields(account);
 			modelAndView = new ModelAndView("redirect:/login?accountCreated");
 		}
 		else

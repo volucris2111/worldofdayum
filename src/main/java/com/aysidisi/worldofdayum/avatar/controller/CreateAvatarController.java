@@ -16,7 +16,6 @@ import com.aysidisi.plainspringwebapp.web.core.ViewTemplate;
 import com.aysidisi.worldofdayum.adventure.websocket.AdventureMapWebsocket;
 import com.aysidisi.worldofdayum.avatar.model.Avatar;
 import com.aysidisi.worldofdayum.avatar.service.AvatarService;
-import com.aysidisi.worldofdayum.avatarclass.service.AvatarClassService;
 import com.aysidisi.worldofdayum.field.service.FieldService;
 
 @Controller
@@ -24,9 +23,6 @@ public class CreateAvatarController
 {
 	@Autowired
 	private AccountService accountService;
-	
-	@Autowired
-	private AvatarClassService avatarClassService;
 
 	@Autowired
 	private AvatarService avatarService;
@@ -55,8 +51,6 @@ public class CreateAvatarController
 		{
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Account account = (Account) authentication.getPrincipal();
-			avatar.setPositionX(0);
-			avatar.setPositionY(0);
 			avatar.setOwnerAccountId(account.getId());
 			Avatar savedAvatar = this.avatarService.save(avatar);
 			modelAndView = new ModelAndView("redirect:/avatars/" + savedAvatar.getId());
@@ -71,8 +65,6 @@ public class CreateAvatarController
 		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
 				ViewTemplate.mainTemplate, "avatar/createAvatar"));
 		modelAndView.addObject("avatar", avatar);
-		modelAndView.addObject("avatarClasses",
-				this.avatarClassService.findByStarterClass(Boolean.TRUE));
 		return modelAndView;
 	}
 	

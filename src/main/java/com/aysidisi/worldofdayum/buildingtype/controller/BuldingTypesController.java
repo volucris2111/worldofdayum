@@ -1,5 +1,5 @@
 
-package com.aysidisi.worldofdayum.avatarclass.controller;
+package com.aysidisi.worldofdayum.buildingtype.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,21 +9,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aysidisi.plainspringwebapp.web.core.ViewManager;
 import com.aysidisi.plainspringwebapp.web.core.ViewTemplate;
-import com.aysidisi.worldofdayum.avatarclass.service.AvatarClassService;
+import com.aysidisi.worldofdayum.buildingtype.service.BuildingTypeService;
 
 @Controller
-public class AvatarClassesController
+public class BuldingTypesController
 {
 	
 	@Autowired
-	private AvatarClassService avatarClassService;
+	private BuildingTypeService buildingTypeService;
 	
-	@RequestMapping(value = "/admin/avatarclasses", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/buildingtypes", method = RequestMethod.GET)
 	public ModelAndView getView()
 	{
 		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "avatarclass/avatarClasses"));
-		modelAndView.addObject("avatarClasses", this.avatarClassService.findAll());
+				ViewTemplate.mainTemplate, "buildingtype/buildingTypes"));
+		modelAndView.addObject("buildingTypes", this.buildingTypeService.findAll());
 		return modelAndView;
 	}
 }

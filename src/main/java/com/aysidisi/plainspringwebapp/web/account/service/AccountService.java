@@ -15,26 +15,31 @@ public class AccountService
 {
 	@Autowired
 	private AccountDao accountDao;
-	
+
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
-	
+
 	public void delete(final Account account)
 	{
 		this.accountDao.delete(account);
 	}
-	
+
 	public List<Account> findAll()
 	{
 		return this.accountDao.findAll();
 	}
-	
+
 	public Account findByName(final String name)
 	{
 		return this.accountDao.findByName(name);
 	}
+	
+	public Account save(final Account account)
+	{
+		return this.accountDao.save(account);
+	}
 
-	public void save(final Account account)
+	public Account saveOnlyEditableFields(final Account account)
 	{
 		Account storedAccount = this.accountDao.findByName(account.getName());
 		if (storedAccount != null)
@@ -47,6 +52,6 @@ public class AccountService
 		{
 			storedAccount = account;
 		}
-		this.accountDao.save(storedAccount);
+		return this.accountDao.save(storedAccount);
 	}
 }

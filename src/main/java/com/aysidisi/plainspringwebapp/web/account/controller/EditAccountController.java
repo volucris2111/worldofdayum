@@ -49,7 +49,7 @@ public class EditAccountController
 		List<String> errors = this.accountValidator.validateAccount(account);
 		if (errors.isEmpty())
 		{
-			this.accountService.save(account);
+			this.accountService.saveOnlyEditableFields(account);
 			modelAndView = new ModelAndView("redirect:/login?accountCreated");
 		}
 		else
