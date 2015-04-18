@@ -11,6 +11,9 @@
 	var avatarSheet = new Image();
 	avatarSheet.src = "../resources/images/avatar.png";
 	
+	var buildingSheet = new Image();
+	buildingSheet.src = "../resources/images/building.png";
+	
 	var map;
 	var avatars;
 	var canvas;
@@ -24,7 +27,7 @@
             	updateAvatars(JSON.parse(avatars.body));
             });
             stompClient.subscribe('/user/adventure/updatemap', function(map){
-           		updateFields(JSON.parse(map.body));
+           		updateTiles(JSON.parse(map.body));
             });
         });
     }
@@ -35,7 +38,7 @@
 		drawMap();
 	}
 	
-	function updateFields(response)
+	function updateTiles(response)
 	{
 		map = response;
 		drawMap();
@@ -46,14 +49,24 @@
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		for(var c = 0; c < map.length; c++)
    		{
-       		var field = map[c];
-       		context.drawImage(terrainSheet, field.sheetPositionX, field.sheetPositionY, tileSize, tileSize, field.relativePositionX * tileDrawSize, field.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
+       		var mapTile = map[c];
+       		var sheet;
+       		if(mapTile.sheetName === "terrainSheet")
+  			{
+       			sheet = terrainSheet;
+  			}
+       		else if(mapTile.sheetName === "buildingSheet")
+  			{
+       			sheet = buildingSheet;
+  			}
+       		context.drawImage(sheet, mapTile.sheetPositionX, mapTile.sheetPositionY, tileSize, tileSize, mapTile.relativePositionX * tileDrawSize, mapTile.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
    		}
 		for(var c = 0; c < avatars.length; c++)
    		{
        		var avatar = avatars[c];
        		context.drawImage(avatarSheet, 0, 0, tileSize, tileSize, avatar.relativePositionX * tileDrawSize, avatar.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
    		}
+		updateActions();
 	}
 	
 	$(function() {
@@ -89,7 +102,10 @@
           hide: {
             effect: "fade",
             duration: 300
-          }
+          },
+          position: { my: "center", at: "center", of: "#myCanvas" },
+          closeOnEscape: true,
+          modal: true
         });
 	});
 	
@@ -119,7 +135,7 @@
 		        url: '${pageContext.request.contextPath}/adventure/mapcluster',
 		        type: "GET",
 		        success: function(data) {
-		        	updateFields(data);
+		        	updateTiles(data);
 		        	updateActions();
 		        }
 		    });
@@ -193,6 +209,30 @@
 	        }
 		});
 	}
+	
+	function showBuilding(buildingId)
+	{
+		$.ajax({
+	        url: '${pageContext.request.contextPath}/building/' + buildingId + '/modal',
+	        type: "GET",
+	        success: function(data) {
+	        	$( "#dialog" ).html(data);
+	        	$( "#dialog" ).dialog( "open" );
+	        }
+		});
+	}
+	
+	function build()
+	{
+		$.ajax({
+	        url: '${pageContext.request.contextPath}/adventure/build',
+	        type: "GET",
+	        success: function(data) {
+	        	$( "#dialog" ).html(data);
+	        	$( "#dialog" ).dialog( "open" );
+	        }
+		});
+	}
 </script>
 <table>
 	<tr>
@@ -201,7 +241,6 @@
 		</td>
 	</tr>
 </table>
-
 
 <div id="dialog">
 </div>

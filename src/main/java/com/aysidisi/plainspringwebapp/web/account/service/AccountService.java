@@ -1,6 +1,7 @@
 
 package com.aysidisi.plainspringwebapp.web.account.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class AccountService
 		return this.accountDao.findByName(name);
 	}
 	
+	public Account findOne(final BigInteger accountId)
+	{
+		return this.accountDao.findOne(accountId);
+	}
+
 	public Account save(final Account account)
 	{
 		return this.accountDao.save(account);

@@ -10,7 +10,7 @@
 					${avatarForView.name}
 				</td>
 			</tr>
-			<tr>
+			<tr> 
 				<td>
 					Geschlecht:
 				</td>

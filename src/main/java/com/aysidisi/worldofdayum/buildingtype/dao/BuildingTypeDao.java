@@ -12,4 +12,6 @@ public interface BuildingTypeDao extends MongoRepository<BuildingType, BigIntege
 {
 	@Override
 	public LinkedList<BuildingType> findAll();
+
+	public LinkedList<BuildingType> findByRequiredFieldTypeId(BigInteger fieldTypeId);
 }

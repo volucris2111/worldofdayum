@@ -19,30 +19,36 @@ public class AvatarService
 {
 	@Autowired
 	private AvatarDao avatarDao;
-	
+
 	public void delete(final Avatar avatar)
 	{
 		this.avatarDao.delete(avatar);
 	}
-	
+
 	public List<Avatar> findByOwnerAccoundId(final BigInteger ownerAccountId)
 	{
 		return this.avatarDao.findByOwnerAccountId(ownerAccountId);
 	}
 
+	public Avatar findByOwnerAccountIdAndMainAvatar(final BigInteger ownerAccountId,
+			final Boolean mainAvatar)
+	{
+		return this.avatarDao.findByOwnerAccountIdAndMainAvatar(ownerAccountId, mainAvatar);
+	}
+	
 	public List<Avatar> findByPositionXBetweenAndPositionYBetweenAndAreaId(
 			final Integer positionXFrom, final Integer positionXTo, final Integer positionYFrom,
 			final Integer positionYTo, final Integer areaId)
-			{
+	{
 		return this.avatarDao.findByPositionXBetweenAndPositionYBetweenAndAreaId(positionXFrom,
 				positionXTo, positionYFrom, positionYTo, areaId);
-			}
-	
+	}
+
 	public Avatar findOne(final BigInteger avatarId)
 	{
 		return this.avatarDao.findOne(avatarId);
 	}
-	
+
 	public List<AvatarPojo> getAvatarPojosNearAvatar(final Avatar avatar)
 	{
 		LinkedList<AvatarPojo> relativeAdventureMap = new LinkedList<AvatarPojo>();
@@ -66,14 +72,14 @@ public class AvatarService
 		}
 		return relativeAdventureMap;
 	}
-
+	
 	public List<Avatar> getAvatarsNearAvatar(final Avatar avatar)
 	{
 		return this.findByPositionXBetweenAndPositionYBetweenAndAreaId(avatar.getPositionX() - 4,
 				avatar.getPositionX() + 4, avatar.getPositionY() - 4, avatar.getPositionY() + 4,
 				avatar.getAreaId());
 	}
-
+	
 	public Avatar getCurrentAvatar()
 	{
 		Avatar avatar = null;
@@ -85,10 +91,10 @@ public class AvatarService
 		}
 		return avatar;
 	}
-	
+
 	public Avatar save(final Avatar avatar)
 	{
 		return this.avatarDao.save(avatar);
 	}
-
+	
 }

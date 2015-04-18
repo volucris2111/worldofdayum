@@ -1,36 +1,29 @@
 
-package com.aysidisi.worldofdayum.adventure.model;
-
-import java.util.List;
+package com.aysidisi.worldofdayum.building.model;
 
 import com.aysidisi.worldofdayum.avatar.model.Avatar;
-import com.aysidisi.worldofdayum.building.model.Building;
 import com.aysidisi.worldofdayum.buildingtype.model.BuildingType;
 import com.aysidisi.worldofdayum.field.model.Field;
 import com.aysidisi.worldofdayum.fieldtype.model.FieldType;
 
-public class AdventureField
+public class BuildingView
 {
-	private List<Avatar> avatars;
 	
-	private Building building;
-
-	private BuildingType buildingType;
-
-	private Field field;
+	Building building;
 	
-	private FieldType fieldType;
+	BuildingType buildingType;
 	
-	public List<Avatar> getAvatars()
-	{
-		return this.avatars;
-	}
-
+	Field field;
+	
+	FieldType fieldType;
+	
+	Avatar ownerAvatar;
+	
 	public Building getBuilding()
 	{
 		return this.building;
 	}
-
+	
 	public BuildingType getBuildingType()
 	{
 		return this.buildingType;
@@ -45,29 +38,34 @@ public class AdventureField
 	{
 		return this.fieldType;
 	}
-
-	public void setAvatars(final List<Avatar> avatars)
+	
+	public Avatar getOwnerAvatar()
 	{
-		this.avatars = avatars;
+		return this.ownerAvatar;
 	}
-
+	
 	public void setBuilding(final Building building)
 	{
 		this.building = building;
 	}
-
+	
 	public void setBuildingType(final BuildingType buildingType)
 	{
 		this.buildingType = buildingType;
 	}
-
+	
 	public void setField(final Field field)
 	{
 		this.field = field;
 	}
-
+	
 	public void setFieldType(final FieldType fieldType)
 	{
 		this.fieldType = fieldType;
+	}
+	
+	public void setOwnerAvatar(final Avatar ownerAvatar)
+	{
+		this.ownerAvatar = ownerAvatar;
 	}
 }

@@ -13,11 +13,13 @@ import com.aysidisi.worldofdayum.avatar.model.Avatar;
 public interface AvatarDao extends MongoRepository<Avatar, BigInteger>
 {
 	@Override
-	public List<Avatar> findAll();
-
-	public List<Avatar> findByOwnerAccountId(BigInteger ownerAccountId);
+	List<Avatar> findAll();
 	
-	public List<Avatar> findByPositionXBetweenAndPositionYBetweenAndAreaId(
-			final Integer positionXFrom, final Integer positionXTo, final Integer positionYFrom,
-			final Integer positionYTo, Integer areaId);
+	List<Avatar> findByOwnerAccountId(BigInteger ownerAccountId);
+	
+	Avatar findByOwnerAccountIdAndMainAvatar(BigInteger ownerAccountId, Boolean mainAvatar);
+	
+	List<Avatar> findByPositionXBetweenAndPositionYBetweenAndAreaId(final Integer positionXFrom,
+			final Integer positionXTo, final Integer positionYFrom, final Integer positionYTo,
+			Integer areaId);
 }

@@ -25,6 +25,11 @@ public class BuildingTypeService
 	{
 		return this.buildingTypeDao.findOne(id);
 	}
+	
+	public LinkedList<BuildingType> findByRequiredFieldTypeId(final BigInteger fieldTypeId)
+	{
+		return this.buildingTypeDao.findByRequiredFieldTypeId(fieldTypeId);
+	}
 
 	public BuildingType save(final BuildingType buildingType)
 	{

@@ -23,22 +23,22 @@ public class CreateAvatarController
 {
 	@Autowired
 	private AccountService accountService;
-
+	
 	@Autowired
 	private AvatarService avatarService;
-	
-	@Autowired
-	private FieldService dungeonFieldService;
 
 	@Autowired
-	private AdventureMapWebsocket dungeonWebsocket;
+	private FieldService dungeonFieldService;
 	
+	@Autowired
+	private AdventureMapWebsocket dungeonWebsocket;
+
 	@RequestMapping(value = "/avatars", method = RequestMethod.GET, params = "create")
 	public ModelAndView create()
 	{
 		return this.initView(new Avatar());
 	}
-	
+
 	@RequestMapping(value = "/avatars", method = RequestMethod.POST)
 	public ModelAndView save(final Avatar avatar)
 	{
@@ -52,6 +52,8 @@ public class CreateAvatarController
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Account account = (Account) authentication.getPrincipal();
 			avatar.setOwnerAccountId(account.getId());
+			avatar.setMainAvatar(this.avatarService.findByOwnerAccountIdAndMainAvatar(
+					account.getId(), true) == null);
 			Avatar savedAvatar = this.avatarService.save(avatar);
 			modelAndView = new ModelAndView("redirect:/avatars/" + savedAvatar.getId());
 			account.setCurrentAvatarId(savedAvatar.getId());
@@ -59,7 +61,7 @@ public class CreateAvatarController
 		}
 		return modelAndView;
 	}
-	
+
 	private ModelAndView initView(final Avatar avatar)
 	{
 		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
@@ -67,7 +69,7 @@ public class CreateAvatarController
 		modelAndView.addObject("avatar", avatar);
 		return modelAndView;
 	}
-	
+
 	private boolean validate(final Avatar avatar)
 	{
 		boolean errors = false;

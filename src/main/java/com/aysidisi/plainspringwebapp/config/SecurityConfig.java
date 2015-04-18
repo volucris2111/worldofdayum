@@ -39,6 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		.access("hasRole('ROLE_ADMIN')").antMatchers("/**").access("hasRole('ROLE_USER')")
 		.and().formLogin().loginPage("/login").failureUrl("/login?error")
 				.usernameParameter("username").passwordParameter("password").and().logout()
-		.logoutSuccessUrl("/login?logout").and().csrf();
+		.logoutSuccessUrl("/login?logout").and().csrf().disable();
 	}
 }

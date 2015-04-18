@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aysidisi.plainspringwebapp.web.core.ViewManager;
 import com.aysidisi.plainspringwebapp.web.core.ViewTemplate;
+import com.aysidisi.worldofdayum.adventure.model.MapTilePojo;
 import com.aysidisi.worldofdayum.field.model.Field;
-import com.aysidisi.worldofdayum.field.model.FieldPojo;
 import com.aysidisi.worldofdayum.field.service.FieldService;
 import com.aysidisi.worldofdayum.fieldtype.service.FieldTypeService;
 
@@ -44,7 +44,7 @@ public class AreaEditorController
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, params =
 		{ "x", "y", "areaId", "size" })
 	@ResponseBody
-	public List<FieldPojo> getAreaCluster(@RequestParam final Integer x,
+	public List<MapTilePojo> getAreaCluster(@RequestParam final Integer x,
 			@RequestParam final Integer y, @RequestParam final Integer areaId,
 			@RequestParam final Integer size)
 			{
