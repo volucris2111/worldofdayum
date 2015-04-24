@@ -1,65 +1,55 @@
 
 package com.aysidisi.worldofdayum.skill.model;
 
-public enum Skill
+import java.math.BigInteger;
+import java.util.List;
+
+import javax.persistence.GeneratedValue;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+public class Skill
 {
-	alchemy("Alchemie", SkillType.working);
-	// axes("Äxte", SkillType.fighting),
-	// blacksmithing("Schmieden", SkillType.working),
-	// blunt("Stumpfe Waffen", SkillType.fighting),
-	// boats("Boote", SkillType.working),
-	// bow("Bögen", SkillType.fighting),
-	// bowyer("Bogenherstellung", SkillType.working),
-	// butcher("Schlachten", SkillType.working),
-	// carpenter("Schreinern", SkillType.fighting),
-	// crossbow("Armbrüste", SkillType.fighting),
-	// dagger("Dolche", SkillType.fighting),
-	// farming("Ackerbau", SkillType.working),
-	// fishing("Fischen", SkillType.working),
-	// furriery("Kürschnern", SkillType.working),
-	// heavyArmor("Schwere Rüstung", SkillType.fighting),
-	// hide("Verstecken", SkillType.working),
-	// hunting("Jagen", SkillType.working),
-	// husbandry("Viehzucht", SkillType.working),
-	// leatherArmor("Lederrüstung", SkillType.fighting),
-	// leathercraft("Lederverarbeitung", SkillType.working),
-	// lightArmor("Leichte Rüstung", SkillType.fighting),
-	// lumbering("Holzfällen", SkillType.working),
-	// mining("Bergbau", SkillType.working),
-	// picklocking("Schlösser knacken", SkillType.working),
-	// seafaring("Seefahren", SkillType.working),
-	// shield("Schilde", SkillType.fighting),
-	// spying("Spionage", SkillType.working),
-	// steal("Stehlen", SkillType.working),
-	// stonecutting("Steinmetzen", SkillType.working),
-	// sword("Schwerter", SkillType.fighting),
-	// tailor("Schneidern", SkillType.working),
-	// trainAnimal("Tiere abrichten", SkillType.working),
-	// treatPoisen("Heilen: Gifte", SkillType.working),
-	// treatWounds("Heilen: Wunden", SkillType.working),
-	// twohandedaxes("Zweihandige Äxte", SkillType.fighting),
-	// twohandedblunt("Zweihändige Stumpfe Waffen", SkillType.fighting),
-	// twohandedsword("Zweihändige Schwerter", SkillType.fighting),
-	// unarmed("Waffenlos", SkillType.fighting);
+	private List<Integer> advancePointsThresholds;
+	
+	@Id
+	@GeneratedValue
+	private BigInteger id;
 
 	private String name;
 	
 	private SkillType skillType;
 	
-	Skill(final String name, final SkillType skillType)
+	public List<Integer> getAdvancePointsThresholds()
 	{
-		this.name = name;
-		this.skillType = skillType;
+		return this.advancePointsThresholds;
 	}
 	
+	public BigInteger getId()
+	{
+		return this.id;
+	}
+
 	public String getName()
 	{
 		return this.name;
 	}
-	
+
 	public SkillType getSkillType()
 	{
 		return this.skillType;
+	}
+	
+	public void setAdvancePointsThresholds(final List<Integer> advancePointsThresholds)
+	{
+		this.advancePointsThresholds = advancePointsThresholds;
+	}
+	
+	public void setId(final BigInteger id)
+	{
+		this.id = id;
 	}
 	
 	public void setName(final String name)
