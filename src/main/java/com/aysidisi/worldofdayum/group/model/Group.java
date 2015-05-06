@@ -4,8 +4,6 @@ package com.aysidisi.worldofdayum.group.model;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,7 +12,7 @@ public class Group
 {
 
 	@Id
-	@GeneratedValue
+	
 	private BigInteger id;
 	
 	private BigInteger leaderId;

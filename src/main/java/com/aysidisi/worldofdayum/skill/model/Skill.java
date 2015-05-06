@@ -4,8 +4,6 @@ package com.aysidisi.worldofdayum.skill.model;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,7 +13,7 @@ public class Skill
 	private List<Integer> advancePointsThresholds;
 	
 	@Id
-	@GeneratedValue
+	
 	private BigInteger id;
 
 	private String name;

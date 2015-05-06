@@ -6,8 +6,13 @@
 		var tileSize = 130;
 		var tileDrawSize = 80;
 		var size = 5;
+		
 		var terrainSheet = new Image();
 		terrainSheet.src = "../resources/images/terrain.png";
+		
+		var buildingSheet = new Image();
+		buildingSheet.src = "../resources/images/building.png";
+		
 		var map;
 		var canvas;
 		var context;
@@ -23,8 +28,17 @@
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			for(var c = 0; c<map.length; c++)
     		{
-        		var field = map[c];
-        		context.drawImage(terrainSheet, field.sheetPositionX, field.sheetPositionY, tileSize, tileSize, field.relativePositionX * tileDrawSize, field.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
+				var mapTile = map[c];
+	       		var sheet;
+	       		if(mapTile.sheetName === "terrainSheet")
+	  			{
+	       			sheet = terrainSheet;
+	  			}
+	       		else if(mapTile.sheetName === "buildingSheet")
+	  			{
+	       			sheet = buildingSheet;
+	  			}
+	       		context.drawImage(sheet, mapTile.sheetPositionX, mapTile.sheetPositionY, tileSize, tileSize, mapTile.relativePositionX * tileDrawSize, mapTile.relativePositionY * tileDrawSize, tileDrawSize, tileDrawSize);
     		}
 			context.beginPath();
 	    	context.moveTo(size * tileDrawSize, size * tileDrawSize);

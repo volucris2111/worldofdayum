@@ -14,27 +14,24 @@ import com.aysidisi.plainspringwebapp.web.core.ViewTemplate;
 public class LoginController
 {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(
-			@RequestParam(value = "error", required = false) final String error,
+	public ModelAndView login(@RequestParam(value = "error", required = false) final String error,
 			@RequestParam(value = "accountCreated", required = false) final String accountCreated,
 			@RequestParam(value = "logout", required = false) final String logout)
 	{
-		ModelAndView modelAndView = new ModelAndView(
-				ViewManager.generateViewName(ViewTemplate.bodyOnly,
-						"login/login"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"login/login");
+		modelAndView.addObject("view", "views/login/login");
 		if (error != null)
 		{
 			modelAndView.addObject("error", "Invalid username and password!");
 		}
 		if (logout != null)
 		{
-			modelAndView.addObject("msg",
-					"You've been logged out successfully.");
+			modelAndView.addObject("msg", "You've been logged out successfully.");
 		}
 		if (accountCreated != null)
 		{
-			modelAndView.addObject("msg",
-					"Account created successfully. Please loggin.");
+			modelAndView.addObject("msg", "Account created successfully. Please loggin.");
 		}
 		return modelAndView;
 	}

@@ -3,8 +3,6 @@ package com.aysidisi.worldofdayum.fieldtype.model;
 
 import java.math.BigInteger;
 
-import javax.persistence.GeneratedValue;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class FieldType
 {
 	@Id
-	@GeneratedValue
+	
 	private BigInteger id;
 
 	private Integer movementSpeed;

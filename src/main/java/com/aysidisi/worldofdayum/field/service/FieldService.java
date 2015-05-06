@@ -28,50 +28,50 @@ public class FieldService
 	
 	@Autowired
 	private BuildingTypeService buildingTypeService;
-
+	
 	@Autowired
 	private FieldDao fieldDao;
-	
+
 	@Autowired
 	private FieldTypeService fieldTypeService;
-	
+
 	public void deletAll()
 	{
 		this.fieldDao.deleteAll();
 	}
-
+	
 	public List<Field> findAll()
 	{
 		return this.fieldDao.findAll();
 	}
-	
+
 	public Field findByBuildingId(final BigInteger buildingId)
 	{
 		return this.fieldDao.findByBuildingId(buildingId);
 	}
-
+	
 	public Field findByPositionXAndPositionYAndAreaId(final Integer positionX,
 			final Integer positionY, final Integer areaId)
 	{
 		return this.fieldDao.findByPositionXAndPositionYAndAreaId(positionX, positionY, areaId);
 	}
-
+	
 	public List<Field> findByPositionXBetweenAndPositionYBetweenAndAreaId(
 			final Integer positionXFrom, final Integer positionXTo, final Integer positionYFrom,
 			final Integer positionYTo, final Integer areaId)
-	{
+			{
 		return this.fieldDao.findByPositionXBetweenAndPositionYBetweenAndAreaId(positionXFrom,
 				positionXTo, positionYFrom, positionYTo, areaId);
-	}
-	
+			}
+
 	public Field findOne(final BigInteger id)
 	{
 		return this.fieldDao.findOne(id);
 	}
-
+	
 	public LinkedList<MapTilePojo> getAreaClusterByPositionOfSize(final Integer positionX,
 			final Integer positionY, final Integer areaId, final Integer size)
-			{
+	{
 		LinkedList<MapTilePojo> areaCluster = new LinkedList<MapTilePojo>();
 		HashMap<BigInteger, FieldType> fieldTypeCache = new HashMap<BigInteger, FieldType>();
 		HashMap<BigInteger, BuildingType> buildingTypeCache = new HashMap<BigInteger, BuildingType>();
@@ -110,11 +110,11 @@ public class FieldService
 				mapTilePojo.setSheetName("terrainSheet");
 			}
 			areaCluster.add(mapTilePojo);
-
+			
 		}
 		return areaCluster;
-			}
-
+	}
+	
 	public LinkedList<MapTilePojo> getRelativeAdventureMapForAvatar(final Avatar avatar)
 	{
 		LinkedList<MapTilePojo> relativeAdventureMap = new LinkedList<MapTilePojo>();
@@ -122,11 +122,11 @@ public class FieldService
 		{
 			relativeAdventureMap = this.getAreaClusterByPositionOfSize(avatar.getPositionX(),
 					avatar.getPositionY(), avatar.getAreaId(), 3);
-			
+
 		}
 		return relativeAdventureMap;
 	}
-
+	
 	public void save(final Field gameMapField)
 	{
 		this.fieldDao.save(gameMapField);

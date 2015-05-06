@@ -4,8 +4,6 @@ package com.aysidisi.plainspringwebapp.web.account.model;
 import java.math.BigInteger;
 import java.util.Collection;
 
-import javax.persistence.GeneratedValue;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -32,7 +30,6 @@ public class Account implements UserDetails
 	private Boolean enabled;
 	
 	@Id
-	@GeneratedValue
 	private BigInteger id;
 	
 	private String mail;

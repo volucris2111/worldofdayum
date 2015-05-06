@@ -28,7 +28,7 @@ public class AreaEditorController
 	
 	@Autowired
 	private FieldService fieldService;
-
+	
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET)
 	public ModelAndView areaEditor()
 	{

@@ -21,16 +21,16 @@
 								<a href="<c:url value="/admin/buildingtypes/?create"/>"><button type="button">Neu</button></a>
 							</th>
 						</tr>
-						<c:forEach items="${buildingTypes}" var="buildingTypes">
+						<c:forEach items="${buildingTypes}" var="buildingType">
 							<tr>
 								<td>
-									${buildingTypes.name}
+									${buildingType.name}
 								</td>
 								<td>
-									<div style="background-image: url(../resources/images/building.png); background-position: -${buildingTypes.sheetPositionX}px -${buildingTypes.sheetPositionY}px; height: 130px; width: 130px;"></div>
+									<div style="background-image: url(../resources/images/building.png); background-position: -${buildingType.sheetPositionX}px -${buildingType.sheetPositionY}px; height: 130px; width: 130px;"></div>
 								</td>
 								<td>
-									<a href="<c:url value="/admin/buildingtypes/${buildingTypes.id}/?edit"/>"><button type="button">Edit</button></a>
+									<a href="<c:url value="/admin/buildingtypes/${buildingType.id}/?edit"/>"><button type="button">Edit</button></a>
 								</td>
 							</tr>
 						</c:forEach>

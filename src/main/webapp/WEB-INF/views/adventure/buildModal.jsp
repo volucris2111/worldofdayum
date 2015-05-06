@@ -5,6 +5,7 @@ function built(buildingTypeId)
 	$.ajax({
         url: '${pageContext.request.contextPath}/adventure/build/' + buildingTypeId + "/",
         type: "POST",
+        async: false,
         data: $("#test").serialize(),
         success: function(data) {
         	$( "#dialog" ).html(data);

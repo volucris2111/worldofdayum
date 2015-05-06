@@ -3,8 +3,6 @@ package com.aysidisi.worldofdayum.building.model;
 
 import java.math.BigInteger;
 
-import javax.persistence.GeneratedValue;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,15 +11,21 @@ public class Building
 {
 	private BigInteger buildingTypeId;
 
+	private String description;
+	
 	@Id
-	@GeneratedValue
 	private BigInteger id;
 	
 	private BigInteger ownerAccountId;
-	
+
 	public BigInteger getBuildingTypeId()
 	{
 		return this.buildingTypeId;
+	}
+
+	public String getDescription()
+	{
+		return this.description;
 	}
 	
 	public BigInteger getId()
@@ -37,6 +41,11 @@ public class Building
 	public void setBuildingTypeId(final BigInteger buildingTypeId)
 	{
 		this.buildingTypeId = buildingTypeId;
+	}
+	
+	public void setDescription(final String description)
+	{
+		this.description = description;
 	}
 	
 	public void setId(final BigInteger id)

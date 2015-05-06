@@ -19,6 +19,11 @@
 					<a href="<c:url value="/admin/buildingtypes"/>"><button>GebäudeTypen</button></a>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<a href="<c:url value="/admin/skills"/>"><button>Fähigkeiten</button></a>
+				</td>
+			</tr>
 		</table>
 	</body>
 </html>

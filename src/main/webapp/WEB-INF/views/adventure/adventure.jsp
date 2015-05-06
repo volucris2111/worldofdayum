@@ -134,6 +134,7 @@
 		 $.ajax({
 		        url: '${pageContext.request.contextPath}/adventure/mapcluster',
 		        type: "GET",
+		        async: false,
 		        success: function(data) {
 		        	updateTiles(data);
 		        	updateActions();
@@ -146,6 +147,7 @@
 		 $.ajax({
 		        url: '${pageContext.request.contextPath}/adventure/avatars',
 		        type: "GET",
+		        async: false,
 		        success: function(data) {
 		        	avatars = data;
 		        }
@@ -181,6 +183,7 @@
 		$.ajax({
 	        url: '${pageContext.request.contextPath}/adventure/currentfield',
 	        type: "GET",
+	        async: false,
 	        success: function(data) {
 	        	$("#actions").html(data);
 	        	 $(function() {
@@ -203,6 +206,7 @@
 		$.ajax({
 	        url: '${pageContext.request.contextPath}/adventure/avatars/' + avatarId + '/',
 	        type: "GET",
+	        async: false,
 	        success: function(data) {
 	        	$( "#dialog" ).html(data);
 	        	$( "#dialog" ).dialog( "open" );
@@ -215,6 +219,7 @@
 		$.ajax({
 	        url: '${pageContext.request.contextPath}/building/' + buildingId + '/modal',
 	        type: "GET",
+	        async: false,
 	        success: function(data) {
 	        	$( "#dialog" ).html(data);
 	        	$( "#dialog" ).dialog( "open" );
@@ -227,6 +232,7 @@
 		$.ajax({
 	        url: '${pageContext.request.contextPath}/adventure/build',
 	        type: "GET",
+	        async: false,
 	        success: function(data) {
 	        	$( "#dialog" ).html(data);
 	        	$( "#dialog" ).dialog( "open" );

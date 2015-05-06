@@ -12,60 +12,60 @@ import com.aysidisi.worldofdayum.fieldtype.model.FieldType;
 public class AdventureField
 {
 	private List<Avatar> avatars;
-	
+
 	private Building building;
-
+	
 	private BuildingType buildingType;
-
+	
 	private Field field;
-	
+
 	private FieldType fieldType;
-	
+
 	public List<Avatar> getAvatars()
 	{
 		return this.avatars;
 	}
-
+	
 	public Building getBuilding()
 	{
 		return this.building;
 	}
-
+	
 	public BuildingType getBuildingType()
 	{
 		return this.buildingType;
 	}
-	
+
 	public Field getField()
 	{
 		return this.field;
 	}
-	
+
 	public FieldType getFieldType()
 	{
 		return this.fieldType;
 	}
-
+	
 	public void setAvatars(final List<Avatar> avatars)
 	{
 		this.avatars = avatars;
 	}
-
+	
 	public void setBuilding(final Building building)
 	{
 		this.building = building;
 	}
-
+	
 	public void setBuildingType(final BuildingType buildingType)
 	{
 		this.buildingType = buildingType;
 	}
-
+	
 	public void setField(final Field field)
 	{
 		this.field = field;
 	}
-
+	
 	public void setFieldType(final FieldType fieldType)
 	{
 		this.fieldType = fieldType;
