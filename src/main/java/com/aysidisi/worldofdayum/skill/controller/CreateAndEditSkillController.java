@@ -23,13 +23,13 @@ public class CreateAndEditSkillController
 {
 	@Autowired
 	private SkillService skillService;
-
+	
 	@RequestMapping(value = "/admin/skills/", method = RequestMethod.GET, params = "create")
 	public ModelAndView create()
 	{
 		return this.initView(new Skill());
 	}
-
+	
 	@RequestMapping(value = "/admin/skills/{skillId}", method = RequestMethod.GET, params = "edit")
 	public ModelAndView edit(@PathVariable final BigInteger skillId)
 	{
@@ -40,7 +40,7 @@ public class CreateAndEditSkillController
 		}
 		return this.initView(skill);
 	}
-
+	
 	@RequestMapping(value = "/admin/skills", method = RequestMethod.POST)
 	public ModelAndView save(final Skill skill, final HttpServletRequest request)
 	{
@@ -55,18 +55,18 @@ public class CreateAndEditSkillController
 		}
 		return modelAndView;
 	}
-
+	
 	private ModelAndView initView(final Skill skill)
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "skill/createOrEditSkill"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"skill/createOrEditSkill");
 		skill.getAdvancePointsThresholds().sort((e1, e2) -> e1.compareTo(e2));
-		
+
 		modelAndView.addObject("skill", skill);
 		modelAndView.addObject("skillTypes", SkillType.values());
 		return modelAndView;
 	}
-	
+
 	private boolean validateSkill(final Skill skill)
 	{
 		return false;

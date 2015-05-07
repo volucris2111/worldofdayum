@@ -20,7 +20,6 @@ public class LoginController
 	{
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
 				"login/login");
-		modelAndView.addObject("view", "views/login/login");
 		if (error != null)
 		{
 			modelAndView.addObject("error", "Invalid username and password!");

@@ -21,16 +21,16 @@ public class CreateAndEditBuildingTypeController
 {
 	@Autowired
 	private BuildingTypeService buildingTypeService;
-	
+
 	@Autowired
 	private FieldTypeService fieldTypeService;
-	
+
 	@RequestMapping(value = "/admin/buildingtypes/", method = RequestMethod.GET, params = "create")
 	public ModelAndView create()
 	{
 		return this.initView(new BuildingType());
 	}
-
+	
 	@RequestMapping(value = "/admin/buildingtypes/{buildingTypeId}", method = RequestMethod.GET, params = "edit")
 	public ModelAndView edit(@PathVariable final BigInteger buildingTypeId)
 	{
@@ -41,7 +41,7 @@ public class CreateAndEditBuildingTypeController
 		}
 		return this.initView(buildingType);
 	}
-
+	
 	@RequestMapping(value = "/admin/buildingtypes", method = RequestMethod.POST)
 	public ModelAndView save(final BuildingType buildingType)
 	{
@@ -56,16 +56,16 @@ public class CreateAndEditBuildingTypeController
 		}
 		return modelAndView;
 	}
-
+	
 	private ModelAndView initView(final BuildingType buildingType)
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "buildingtype/createOrEditBuildingType"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"buildingtype/createOrEditBuildingType");
 		modelAndView.addObject("buildingType", buildingType);
 		modelAndView.addObject("fieldTypes", this.fieldTypeService.findAll());
 		return modelAndView;
 	}
-	
+
 	private boolean validateBuildingType(final BuildingType buildingType)
 	{
 		return false;

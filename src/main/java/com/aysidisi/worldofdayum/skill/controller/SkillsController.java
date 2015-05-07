@@ -14,15 +14,15 @@ import com.aysidisi.worldofdayum.skill.service.SkillService;
 @Controller
 public class SkillsController
 {
-
+	
 	@Autowired
 	private SkillService skillService;
-
+	
 	@RequestMapping(value = "/admin/skills", method = RequestMethod.GET)
 	public ModelAndView getView()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "skill/skills"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"skill/skills");
 		modelAndView.addObject("skills", this.skillService.getSkillListSortedByNameAndSkillType());
 		return modelAndView;
 	}

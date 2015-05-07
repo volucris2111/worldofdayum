@@ -25,34 +25,34 @@ public class AreaEditorController
 {
 	@Autowired
 	private FieldTypeService fFieldTypeService;
-	
+
 	@Autowired
 	private FieldService fieldService;
-	
+
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET)
 	public ModelAndView areaEditor()
 	{
-		
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "areaeditor/areaEditor"));
+
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"areaeditor/areaEditor");
 		modelAndView.addObject("fieldTypes", this.fFieldTypeService.findAll());
 		modelAndView.addObject("fields",
 				this.fieldService.getAreaClusterByPositionOfSize(0, 0, 0, 5));
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, params =
-		{ "x", "y", "areaId", "size" })
+	{ "x", "y", "areaId", "size" })
 	@ResponseBody
 	public List<MapTilePojo> getAreaCluster(@RequestParam final Integer x,
 			@RequestParam final Integer y, @RequestParam final Integer areaId,
 			@RequestParam final Integer size)
-			{
+	{
 		return this.fieldService.getAreaClusterByPositionOfSize(x, y, areaId, size);
-			}
-	
+	}
+
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, params =
-		{ "x", "y", "areaId", "fieldTypeId" })
+	{ "x", "y", "areaId", "fieldTypeId" })
 	@ResponseBody
 	public void setFieldType(@RequestParam final Integer x, @RequestParam final Integer y,
 			@RequestParam final Integer areaId, @RequestParam final String fieldTypeId)

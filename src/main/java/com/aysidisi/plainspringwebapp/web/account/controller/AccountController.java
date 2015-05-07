@@ -23,8 +23,8 @@ public class AccountController
 	@RequestMapping(value = "/account/", method = RequestMethod.GET)
 	public ModelAndView account()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "account/account"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"account/account");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		this.initView(modelAndView, this.accountService.findByName(authentication.getName()));
 		return modelAndView;

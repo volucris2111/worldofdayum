@@ -30,54 +30,54 @@ public class BuildingController
 {
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private AvatarService avatarService;
-	
+
 	@Autowired
 	private BuildingService buildingService;
-
+	
 	@Autowired
 	private BuildingTypeService buildingTypeService;
-
+	
 	@Autowired
 	private FieldService fieldService;
-	
+
 	@Autowired
 	private FieldTypeService fieldTypeService;
-	
+
 	@RequestMapping(value = "/building/{buildingId}/modal", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView getBuildingModal(@PathVariable final BigInteger buildingId)
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.bodyOnly, "building/building"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"building/building");
 		Account account = (Account) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
 		Building building = this.buildingService.findOne(buildingId);
 		if (building.getOwnerAccountId().equals(account.getId()))
 		{
-			modelAndView = new ModelAndView(ViewManager.generateViewName(ViewTemplate.bodyOnly,
-					"building/buildingOwner"));
+			modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+					"building/buildingOwner");
 		}
 		this.initView(buildingId, modelAndView, account, building);
 		return modelAndView;
 	}
-	
+
 	private void initView(final BigInteger buildingId, final ModelAndView modelAndView,
 			final Account account, final Building building)
 	{
 		BuildingView buildingView = new BuildingView();
 		buildingView.setBuilding(building);
 		buildingView
-				.setBuildingType(this.buildingTypeService.findById(building.getBuildingTypeId()));
+		.setBuildingType(this.buildingTypeService.findById(building.getBuildingTypeId()));
 		buildingView.setField(this.fieldService.findByBuildingId(buildingId));
 		buildingView.setFieldType(this.fieldTypeService.findById(buildingView.getField()
 				.getFieldTypeId()));
-		
+
 		buildingView.setOwnerAvatar(this.avatarService.findByOwnerAccountIdAndMainAvatar(
 				this.accountService.findOne(building.getOwnerAccountId()).getId(), Boolean.TRUE));
 		modelAndView.addObject("buildingView", buildingView);
 	}
-	
+
 }

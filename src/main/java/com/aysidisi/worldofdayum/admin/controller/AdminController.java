@@ -15,7 +15,6 @@ public class AdminController
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView getView()
 	{
-		return new ModelAndView(ViewManager.generateViewName(ViewTemplate.mainTemplate,
-				"admin/admin"));
+		return ViewManager.generateModelAndView(ViewTemplate.mainTemplate, "admin/admin");
 	}
 }

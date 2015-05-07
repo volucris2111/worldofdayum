@@ -56,8 +56,8 @@ public class AdventureMapController
 	@ResponseBody
 	public ModelAndView build(@PathVariable final BigInteger buildingTypeId)
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.bodyOnly, "adventure/builModal"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"adventure/builModal");
 		Avatar selectedAvatar = this.avatarService.getCurrentAvatar();
 		Field field = this.fieldService.findByPositionXAndPositionYAndAreaId(
 				selectedAvatar.getPositionX(), selectedAvatar.getPositionY(),
@@ -103,8 +103,8 @@ public class AdventureMapController
 	@RequestMapping(value = "/adventure", method = RequestMethod.GET)
 	public ModelAndView getAdventureView()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "adventure/adventure"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"adventure/adventure");
 		if (this.avatarService.getCurrentAvatar() == null)
 		{
 			modelAndView = new ModelAndView("redirect:/avatars/?create");
@@ -116,8 +116,8 @@ public class AdventureMapController
 	@ResponseBody
 	public ModelAndView getAvatarModal(@PathVariable final BigInteger avatarId)
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.bodyOnly, "adventure/avatarModal"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"adventure/avatarModal");
 		Avatar currentAvatar = this.avatarService.getCurrentAvatar();
 		Avatar avatarForView = this.avatarService.findOne(avatarId);
 		if (currentAvatar.getAreaId().equals(avatarForView.getAreaId())
@@ -140,8 +140,8 @@ public class AdventureMapController
 	@ResponseBody
 	public ModelAndView getBuildModal()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.bodyOnly, "adventure/buildModal"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"adventure/buildModal");
 		Avatar currentAvatar = this.avatarService.getCurrentAvatar();
 		Field field = this.fieldService.findByPositionXAndPositionYAndAreaId(
 				currentAvatar.getPositionX(), currentAvatar.getPositionY(),
@@ -155,8 +155,8 @@ public class AdventureMapController
 	@ResponseBody
 	public ModelAndView getCurrentActions()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.bodyOnly, "adventure/currentActions"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"adventure/currentActions");
 		modelAndView.addObject("currentField", this.adventureMapHelper
 				.getCurrentAdventureField(this.avatarService.getCurrentAvatar()));
 		return modelAndView;

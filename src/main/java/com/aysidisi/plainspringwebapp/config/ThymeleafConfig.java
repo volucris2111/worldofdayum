@@ -3,6 +3,7 @@ package com.aysidisi.plainspringwebapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.resourceresolver.SpringResourceResourceResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -12,7 +13,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 @Configuration
 public class ThymeleafConfig extends SpringTemplateEngine
 {
-
+	
 	@Bean
 	public ITemplateResolver defaultTemplateResolver()
 	{
@@ -25,21 +26,22 @@ public class ThymeleafConfig extends SpringTemplateEngine
 		resolver.setCacheable(false);
 		return resolver;
 	}
-
+	
 	@Bean
 	public SpringTemplateEngine templateEngine()
 	{
 		SpringTemplateEngine engine = new SpringTemplateEngine();
 		engine.setTemplateResolver(this.defaultTemplateResolver());
+		engine.addDialect(new SpringSecurityDialect());
 		return engine;
 	}
-	
+
 	@Bean
 	public SpringResourceResourceResolver thymeleafResourceResolver()
 	{
 		return new SpringResourceResourceResolver();
 	}
-	
+
 	@Bean
 	public ThymeleafViewResolver thymeleafViewResolver()
 	{

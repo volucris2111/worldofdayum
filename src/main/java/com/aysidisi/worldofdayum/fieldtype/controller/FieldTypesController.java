@@ -14,15 +14,15 @@ import com.aysidisi.worldofdayum.fieldtype.service.FieldTypeService;
 @Controller
 public class FieldTypesController
 {
-	
+
 	@Autowired
 	private FieldTypeService fieldTypeService;
-	
+
 	@RequestMapping(value = "/admin/fieldtypes", method = RequestMethod.GET)
 	public ModelAndView getView()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "fieldtype/fieldTypes"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"fieldtype/fieldTypes");
 		modelAndView.addObject("fieldTypes", this.fieldTypeService.findAll());
 		return modelAndView;
 	}

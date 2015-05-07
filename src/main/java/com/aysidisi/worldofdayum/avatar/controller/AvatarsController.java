@@ -20,15 +20,15 @@ import com.aysidisi.worldofdayum.avatar.service.AvatarService;
 @Controller
 public class AvatarsController
 {
-	
+
 	@Autowired
 	private AvatarService avatarService;
-
+	
 	@RequestMapping(value = "/avatars", method = RequestMethod.GET)
 	public ModelAndView avatarList()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "avatar/avatars"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"avatar/avatars");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Account account = (Account) authentication.getPrincipal();
 		List<Avatar> avatars = this.avatarService.findByOwnerAccoundId(account.getId());

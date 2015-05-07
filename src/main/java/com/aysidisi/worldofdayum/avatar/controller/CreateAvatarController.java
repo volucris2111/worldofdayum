@@ -23,22 +23,22 @@ public class CreateAvatarController
 {
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private AvatarService avatarService;
-
-	@Autowired
-	private FieldService dungeonFieldService;
 	
 	@Autowired
-	private AdventureMapWebsocket dungeonWebsocket;
+	private FieldService dungeonFieldService;
 
+	@Autowired
+	private AdventureMapWebsocket dungeonWebsocket;
+	
 	@RequestMapping(value = "/avatars", method = RequestMethod.GET, params = "create")
 	public ModelAndView create()
 	{
 		return this.initView(new Avatar());
 	}
-
+	
 	@RequestMapping(value = "/avatars", method = RequestMethod.POST)
 	public ModelAndView save(final Avatar avatar)
 	{
@@ -61,15 +61,15 @@ public class CreateAvatarController
 		}
 		return modelAndView;
 	}
-
+	
 	private ModelAndView initView(final Avatar avatar)
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "avatar/createAvatar"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"avatar/createAvatar");
 		modelAndView.addObject("avatar", avatar);
 		return modelAndView;
 	}
-
+	
 	private boolean validate(final Avatar avatar)
 	{
 		boolean errors = false;

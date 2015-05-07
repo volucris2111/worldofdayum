@@ -24,26 +24,26 @@ public class CreateAccountController
 {
 	@Autowired
 	private AccountService accountService;
-
+	
 	@Autowired
 	private AccountValidator accountValidator;
-
+	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView createAccount()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.bodyOnly, "account/createAccount"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"account/createAccount");
 		List<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		this.initView(modelAndView, new Account());
 		return modelAndView;
 	}
-
+	
 	public void initView(final ModelAndView modelAndView, final Account account)
 	{
 		modelAndView.addObject("account", account);
 	}
-	
+
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ModelAndView saveAccount(@ModelAttribute final Account account)
 	{
@@ -66,5 +66,5 @@ public class CreateAccountController
 		}
 		return modelAndView;
 	}
-
+	
 }

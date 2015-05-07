@@ -20,13 +20,13 @@ public class CreateAndEditFieldTypeController
 {
 	@Autowired
 	private FieldTypeService fieldTypeService;
-
+	
 	@RequestMapping(value = "/admin/fieldtypes/", method = RequestMethod.GET, params = "create")
 	public ModelAndView create()
 	{
 		return this.initView(new FieldType());
 	}
-
+	
 	@RequestMapping(value = "/admin/fieldtypes/{fieldTypeId}", method = RequestMethod.GET, params = "edit")
 	public ModelAndView edit(@PathVariable final BigInteger fieldTypeId)
 	{
@@ -37,7 +37,7 @@ public class CreateAndEditFieldTypeController
 		}
 		return this.initView(fieldType);
 	}
-	
+
 	@RequestMapping(value = "/admin/fieldtypes", method = RequestMethod.POST)
 	public ModelAndView save(final FieldType fieldType)
 	{
@@ -52,18 +52,18 @@ public class CreateAndEditFieldTypeController
 		}
 		return modelAndView;
 	}
-	
+
 	private ModelAndView initView(final FieldType fieldType)
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "fieldtype/createOrEditFieldType"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"fieldtype/createOrEditFieldType");
 		modelAndView.addObject("fieldType", fieldType);
 		return modelAndView;
 	}
-
+	
 	private boolean validateFieldType(final FieldType fieldType)
 	{
 		return false;
 	}
-
+	
 }

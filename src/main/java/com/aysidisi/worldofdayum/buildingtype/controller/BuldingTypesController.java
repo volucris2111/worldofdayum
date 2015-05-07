@@ -14,15 +14,15 @@ import com.aysidisi.worldofdayum.buildingtype.service.BuildingTypeService;
 @Controller
 public class BuldingTypesController
 {
-	
+
 	@Autowired
 	private BuildingTypeService buildingTypeService;
-	
+
 	@RequestMapping(value = "/admin/buildingtypes", method = RequestMethod.GET)
 	public ModelAndView getView()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.mainTemplate, "buildingtype/buildingTypes"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
+				"buildingtype/buildingTypes");
 		modelAndView.addObject("buildingTypes", this.buildingTypeService.findAll());
 		return modelAndView;
 	}
