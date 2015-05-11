@@ -1,0 +1,21 @@
+<table>
+	<tr>
+		<td>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Besitzer:
+		</td>
+	</tr>
+	<tr>
+		<td th:text="${buildingView.ownerAvatar.name}">
+		</td>
+	</tr>
+</table>
+
+<script th:inline="javascript">
+$(function() {
+	$( "#dialog" ).dialog( "option", "title", [[${buildingView.buildingType.name}]] + " (" + [[${buildingView.field.positionX}]] + "/" + [[${buildingView.field.positionY}]] + ")");	
+})
+</script>

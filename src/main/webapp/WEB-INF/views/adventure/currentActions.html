@@ -1,0 +1,18 @@
+<ul id="menu">
+	<li class="ui-widget-header" th:text="${currentField.fieldType.name}"></li>
+	<li class="ui-state-disabled">Verstecken</li>
+	<li class="ui-widget-header" th:if="${currentField.avatars != null}">Avatare</li>
+	<li th:if="${currentField.avatars != null}" th:each="avatar : ${currentField.avatars}">
+	<span th:text="${avatar.name}"></span>
+		<ul>
+			<li th:onclick="'javascript:showAvatar(\'' + ${avatar.id} + '\');'">Betrachten</li>
+			<li class="ui-state-disabled">Brief</li>
+			<li class="ui-state-disabled">Stehlen</li>
+			<li class="ui-state-disabled">Angreifen</li>
+		</ul>
+	</li>
+	<li class="ui-widget-header">Gebäude</li>
+	<li th:if="${currentField.building != null}" class="ui-state-disabled">Betreten</li>
+	<li th:if="${currentField.building != null}" th:onclick="'javascript:showBuilding(\'' + ${currentField.building.id} + '\');'">Betrachten</li>
+	<li th:unless="${currentField.building != null}" onclick="showBuildModel()">Bauen</li>
+</ul>

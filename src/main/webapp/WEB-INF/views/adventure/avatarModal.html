@@ -1,0 +1,11 @@
+<table th:if="${avatarForView != null}">
+	<tr>
+		<td>Name:</td>
+		<td th:text="${avatarForView.name}"></td>
+	</tr>
+	<tr> 
+		<td>Geschlecht:</td>
+		<td th:text="${avatarForView.male} ? Männlich : Weiblich"></td>
+	</tr>
+</table>
+<span th:unless="${avatarForView != null}">Avatar konnte nicht gefunden werden!</span>

@@ -1,0 +1,33 @@
+<script th:inline="javascript">
+/*<![CDATA[*/
+function build(buildingTypeId)
+{
+	$.ajax({
+        url: [[@{/adventure/build}]] + "/" + buildingTypeId + "/",
+        type: "POST",
+        async: false,
+        data: $("#test").serialize(),
+        success: function(data) {
+        	$( "#dialog" ).html(data);
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-Ajax-call", "true");
+        },
+	});
+}
+/*]]>*/
+</script>
+<table>
+	<tr th:each="buildingType : ${buildingTypes}">
+		<td>
+			<span th:text="${buildingType.name}"></span><button th:onclick="'javascript:build(\'' + ${buildingType.id} + '\');'">Bauen</button>
+		</td>
+	</tr>
+</table>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(function() {
+	 $( "#dialog" ).dialog( "option", "title", "Bauen");
+})
+/*]]>*/
+</script>
