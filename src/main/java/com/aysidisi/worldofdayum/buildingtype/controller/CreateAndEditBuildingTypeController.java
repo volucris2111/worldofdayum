@@ -1,8 +1,7 @@
 
 package com.aysidisi.worldofdayum.buildingtype.controller;
 
-import java.math.BigInteger;
-
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +31,7 @@ public class CreateAndEditBuildingTypeController
 	}
 	
 	@RequestMapping(value = "/admin/buildingtypes/{buildingTypeId}", method = RequestMethod.GET, params = "edit")
-	public ModelAndView edit(@PathVariable final BigInteger buildingTypeId)
+	public ModelAndView edit(@PathVariable final ObjectId buildingTypeId)
 	{
 		BuildingType buildingType = this.buildingTypeService.findById(buildingTypeId);
 		if (buildingType == null)

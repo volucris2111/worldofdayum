@@ -1,8 +1,7 @@
 
 package com.aysidisi.worldofdayum.avatar.controller;
 
-import java.math.BigInteger;
-
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,12 +21,12 @@ public class AvatarSelectController
 {
 	@Autowired
 	private AccountService accountService;
-
+	
 	@Autowired
 	private AvatarService avatarService;
-	
+
 	@RequestMapping(value = "/avatars/select/{avatarId}", method = RequestMethod.GET)
-	public ModelAndView select(@PathVariable final BigInteger avatarId)
+	public ModelAndView select(@PathVariable final ObjectId avatarId)
 	{
 		ModelAndView modelAndView;
 		Avatar avatar = this.avatarService.findOne(avatarId);

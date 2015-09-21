@@ -1,11 +1,11 @@
 
 package com.aysidisi.worldofdayum.field.service;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,59 +25,59 @@ public class FieldService
 {
 	@Autowired
 	private BuildingService buildingService;
-	
+
 	@Autowired
 	private BuildingTypeService buildingTypeService;
-	
+
 	@Autowired
 	private FieldDao fieldDao;
-
+	
 	@Autowired
 	private FieldTypeService fieldTypeService;
-
+	
 	public void deletAll()
 	{
 		this.fieldDao.deleteAll();
 	}
-	
+
 	public List<Field> findAll()
 	{
 		return this.fieldDao.findAll();
 	}
-
-	public Field findByBuildingId(final BigInteger buildingId)
+	
+	public Field findByBuildingId(final ObjectId buildingId)
 	{
 		return this.fieldDao.findByBuildingId(buildingId);
 	}
-	
+
 	public Field findByPositionXAndPositionYAndAreaId(final Integer positionX,
 			final Integer positionY, final Integer areaId)
 	{
 		return this.fieldDao.findByPositionXAndPositionYAndAreaId(positionX, positionY, areaId);
 	}
-	
+
 	public List<Field> findByPositionXBetweenAndPositionYBetweenAndAreaId(
 			final Integer positionXFrom, final Integer positionXTo, final Integer positionYFrom,
 			final Integer positionYTo, final Integer areaId)
-			{
+	{
 		return this.fieldDao.findByPositionXBetweenAndPositionYBetweenAndAreaId(positionXFrom,
 				positionXTo, positionYFrom, positionYTo, areaId);
-			}
-
-	public Field findOne(final BigInteger id)
+	}
+	
+	public Field findOne(final ObjectId id)
 	{
 		return this.fieldDao.findOne(id);
 	}
-	
+
 	public LinkedList<MapTilePojo> getAreaClusterByPositionOfSize(final Integer positionX,
 			final Integer positionY, final Integer areaId, final Integer size)
 	{
 		LinkedList<MapTilePojo> areaCluster = new LinkedList<MapTilePojo>();
-		HashMap<BigInteger, FieldType> fieldTypeCache = new HashMap<BigInteger, FieldType>();
-		HashMap<BigInteger, BuildingType> buildingTypeCache = new HashMap<BigInteger, BuildingType>();
-		for (Field currentField : this.findByPositionXBetweenAndPositionYBetweenAndAreaId(positionX
-				- size - 1, positionX + size + 1, positionY - size - 1, positionY + size + 1,
-				areaId))
+		HashMap<ObjectId, FieldType> fieldTypeCache = new HashMap<ObjectId, FieldType>();
+		HashMap<ObjectId, BuildingType> buildingTypeCache = new HashMap<ObjectId, BuildingType>();
+		for (Field currentField : this.findByPositionXBetweenAndPositionYBetweenAndAreaId(
+				positionX - size - 1, positionX + size + 1, positionY - size - 1,
+				positionY + size + 1, areaId))
 		{
 			if (fieldTypeCache.get(currentField.getFieldTypeId()) == null)
 			{
@@ -110,11 +110,11 @@ public class FieldService
 				mapTilePojo.setSheetName("terrainSheet");
 			}
 			areaCluster.add(mapTilePojo);
-			
+
 		}
 		return areaCluster;
 	}
-	
+
 	public LinkedList<MapTilePojo> getRelativeAdventureMapForAvatar(final Avatar avatar)
 	{
 		LinkedList<MapTilePojo> relativeAdventureMap = new LinkedList<MapTilePojo>();
@@ -122,11 +122,11 @@ public class FieldService
 		{
 			relativeAdventureMap = this.getAreaClusterByPositionOfSize(avatar.getPositionX(),
 					avatar.getPositionY(), avatar.getAreaId(), 3);
-
+					
 		}
 		return relativeAdventureMap;
 	}
-	
+
 	public void save(final Field gameMapField)
 	{
 		this.fieldDao.save(gameMapField);

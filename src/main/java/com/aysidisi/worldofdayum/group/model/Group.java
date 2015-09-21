@@ -1,50 +1,50 @@
 
 package com.aysidisi.worldofdayum.group.model;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Group
 {
-
+	
 	@Id
-	
-	private BigInteger id;
-	
-	private BigInteger leaderId;
 
-	private List<BigInteger> memberIds;
+	private ObjectId id;
+
+	private ObjectId leaderId;
 	
-	public BigInteger getId()
+	private List<ObjectId> memberIds;
+
+	public ObjectId getId()
 	{
 		return this.id;
 	}
-	
-	public BigInteger getLeaderId()
+
+	public ObjectId getLeaderId()
 	{
 		return this.leaderId;
 	}
-	
-	public List<BigInteger> getMemberIds()
+
+	public List<ObjectId> getMemberIds()
 	{
 		return this.memberIds;
 	}
-	
-	public void setId(final BigInteger id)
+
+	public void setId(final ObjectId id)
 	{
 		this.id = id;
 	}
-	
-	public void setLeaderId(final BigInteger leaderId)
+
+	public void setLeaderId(final ObjectId leaderId)
 	{
 		this.leaderId = leaderId;
 	}
-	
-	public void setMemberIds(final List<BigInteger> memberIds)
+
+	public void setMemberIds(final List<ObjectId> memberIds)
 	{
 		this.memberIds = memberIds;
 	}

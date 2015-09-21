@@ -1,0 +1,43 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td valign="top">
+					<div th:include="views/admin/adminSecNav"></div> 
+				</td>
+				<td>
+					<table>
+						<tr>
+							<th>
+								Feldname
+							</th>
+							<th>
+								Bild
+							</th>
+							<th>
+								Begehbar
+							</th>
+							<th>
+								Bewegungsdauer
+							</th>
+							<th>
+								<a th:href="@{/admin/fieldtypes/?create}"><button type="button">Neu</button></a>
+							</th>
+						</tr>
+						<tr th:each="fieldType : ${fieldTypes}">
+							<td th:text="${fieldType.name}"></td>
+							<td>
+								<div th:style="'background-image: url('+@{/resources/images/terrain.png}+'); background-position: -'+${fieldType.sheetPositionX}+'px -'+${fieldType.sheetPositionY}+'px; height: 130px; width: 130px;'"></div>
+							</td>
+							<td th:text="${fieldType.walkable} ? Ja : Nein"></td>
+							<td th:text="${fieldType.movementSpeed}"></td>
+							<td>
+								<a th:href="@{'/admin/fieldtypes/' + ${fieldType.id} + '/?edit'}"><button type="button">Edit</button></a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

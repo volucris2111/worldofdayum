@@ -1,0 +1,61 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td valign="top">
+					<div th:include="views/admin/adminSecNav"></div>
+				</td>
+				<td>
+					<form th:action="@{/admin/buildingtypes}" th:method="post">
+						<input th:if="${buildingType.id != null}" type="hidden" th:value="${buildingType.id}" name="id"/>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<table>
+							<tr>
+								<td>
+									Name:
+								</td>
+								<td>
+									<input type="text" name="name" th:value="${buildingType.name}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									SheetPositionX:
+								</td>
+								<td>
+									<input type="text" name="sheetPositionX" th:value="${buildingType.sheetPositionX}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									SheetPositionY:
+								</td>
+								<td>
+									<input type="text" name="sheetPositionY" th:value="${buildingType.sheetPositionY}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Benötigtes Feld:
+								</td>
+								<td>
+									<select th:value="${buildingType.requiredFieldTypeId}" th:name="requiredFieldTypeId">
+										<option th:each="fieldType : ${fieldTypes}" th:value="${fieldType.id}" th:text="${fieldType.name}" th:selected="${buildingType.requiredFieldTypeId == fieldType.id}"></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									&nbsp;
+								</td>
+								<td>
+									<button type="submit" name="save" value="speichern">Speichern</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

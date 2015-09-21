@@ -1,9 +1,9 @@
 
 package com.aysidisi.plainspringwebapp.web.account.model;
 
-import java.math.BigInteger;
 import java.util.Collection;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,12 +25,12 @@ public class Account implements UserDetails
 	
 	private Boolean credentialsNonExpired;
 	
-	private BigInteger currentAvatarId;
+	private ObjectId currentAvatarId;
 
 	private Boolean enabled;
 	
 	@Id
-	private BigInteger id;
+	private ObjectId id;
 	
 	private String mail;
 	
@@ -59,7 +59,7 @@ public class Account implements UserDetails
 		return this.credentialsNonExpired == null ? true : this.credentialsNonExpired;
 	}
 	
-	public BigInteger getCurrentAvatarId()
+	public ObjectId getCurrentAvatarId()
 	{
 		return this.currentAvatarId;
 	}
@@ -69,7 +69,7 @@ public class Account implements UserDetails
 		return this.enabled == null ? true : this.enabled;
 	}
 	
-	public BigInteger getId()
+	public ObjectId getId()
 	{
 		return this.id;
 	}
@@ -155,7 +155,7 @@ public class Account implements UserDetails
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 	
-	public void setCurrentAvatarId(final BigInteger currentAvatarId)
+	public void setCurrentAvatarId(final ObjectId currentAvatarId)
 	{
 		this.currentAvatarId = currentAvatarId;
 	}
@@ -165,7 +165,7 @@ public class Account implements UserDetails
 		this.enabled = enabled;
 	}
 	
-	public void setId(final BigInteger id)
+	public void setId(final ObjectId id)
 	{
 		this.id = id;
 	}

@@ -1,8 +1,10 @@
 
 package com.aysidisi.plainspringwebapp.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.resourceresolver.SpringResourceResourceResolver;
@@ -13,6 +15,9 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 @Configuration
 public class ThymeleafConfig extends SpringTemplateEngine
 {
+
+	@Autowired
+	private Environment environment;
 	
 	@Bean
 	public ITemplateResolver defaultTemplateResolver()
@@ -26,7 +31,7 @@ public class ThymeleafConfig extends SpringTemplateEngine
 		resolver.setCacheable(false);
 		return resolver;
 	}
-	
+
 	@Bean
 	public SpringTemplateEngine templateEngine()
 	{
@@ -35,18 +40,19 @@ public class ThymeleafConfig extends SpringTemplateEngine
 		engine.addDialect(new SpringSecurityDialect());
 		return engine;
 	}
-
+	
 	@Bean
 	public SpringResourceResourceResolver thymeleafResourceResolver()
 	{
 		return new SpringResourceResourceResolver();
 	}
-
+	
 	@Bean
 	public ThymeleafViewResolver thymeleafViewResolver()
 	{
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(this.templateEngine());
+		resolver.setContentType("text/html; charset=UTF-8");
 		return resolver;
 	}
 }

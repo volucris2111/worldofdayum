@@ -1,8 +1,7 @@
 
 package com.aysidisi.worldofdayum.avatar.controller;
 
-import java.math.BigInteger;
-
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +17,12 @@ import com.aysidisi.worldofdayum.avatar.service.AvatarService;
 @Controller
 public class AvatarController
 {
-	
+
 	@Autowired
 	private AvatarService avatarService;
-	
+
 	@RequestMapping(value = "/avatars/{avatarId}", method = RequestMethod.GET)
-	public ModelAndView details(@PathVariable final BigInteger avatarId)
+	public ModelAndView details(@PathVariable final ObjectId avatarId)
 	{
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
 				"avatar/avatar");
@@ -37,6 +36,6 @@ public class AvatarController
 			modelAndView.addObject("avatar", avatar);
 		}
 		return modelAndView;
-		
+
 	}
 }

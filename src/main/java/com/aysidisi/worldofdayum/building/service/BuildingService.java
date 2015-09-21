@@ -1,9 +1,9 @@
 
 package com.aysidisi.worldofdayum.building.service;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +15,18 @@ public class BuildingService
 {
 	@Autowired
 	private BuildingDao buildingDao;
-	
-	public Building findOne(final BigInteger buildingId)
+
+	public Building findOne(final ObjectId buildingId)
 	{
 		return this.buildingDao.findOne(buildingId);
 	}
-
+	
 	public Building save(final Building building)
 	{
 		return this.buildingDao.save(building);
 	}
-	
-	List<Building> findByOwnerAccountId(final BigInteger ownerAccountId)
+
+	List<Building> findByOwnerAccountId(final ObjectId ownerAccountId)
 	{
 		return this.buildingDao.findByOwnerAccountId(ownerAccountId);
 	}

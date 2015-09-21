@@ -1,8 +1,8 @@
 
 package com.aysidisi.worldofdayum.building.controller;
 
-import java.math.BigInteger;
-
+import org.bson.types.ObjectId;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,7 +48,7 @@ public class BuildingController
 
 	@RequestMapping(value = "/building/{buildingId}/modal", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ModelAndView getBuildingModal(@PathVariable final BigInteger buildingId)
+	public ModelAndView getBuildingModal(@PathVariable final ObjectId buildingId)
 	{
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
 				"building/building");
@@ -64,16 +64,16 @@ public class BuildingController
 		return modelAndView;
 	}
 
-	private void initView(final BigInteger buildingId, final ModelAndView modelAndView,
+	private void initView(final ObjectId buildingId, final ModelAndView modelAndView,
 			final Account account, final Building building)
 	{
 		BuildingView buildingView = new BuildingView();
 		buildingView.setBuilding(building);
 		buildingView
-		.setBuildingType(this.buildingTypeService.findById(building.getBuildingTypeId()));
+				.setBuildingType(this.buildingTypeService.findById(building.getBuildingTypeId()));
 		buildingView.setField(this.fieldService.findByBuildingId(buildingId));
-		buildingView.setFieldType(this.fieldTypeService.findById(buildingView.getField()
-				.getFieldTypeId()));
+		buildingView.setFieldType(
+				this.fieldTypeService.findById(buildingView.getField().getFieldTypeId()));
 
 		buildingView.setOwnerAvatar(this.avatarService.findByOwnerAccountIdAndMainAvatar(
 				this.accountService.findOne(building.getOwnerAccountId()).getId(), Boolean.TRUE));

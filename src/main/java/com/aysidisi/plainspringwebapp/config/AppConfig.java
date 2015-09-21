@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @Configuration
 @ComponentScan(
-		{ "com.aysidisi.*" })
+{ "com.aysidisi.*" })
 public class AppConfig extends WebMvcConfigurerAdapter
 {
 	@Override
@@ -18,4 +18,5 @@ public class AppConfig extends WebMvcConfigurerAdapter
 	{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
+	
 }

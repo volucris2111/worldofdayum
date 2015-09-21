@@ -1,9 +1,9 @@
 
 package com.aysidisi.worldofdayum.adventure.controller;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -33,28 +33,28 @@ import com.aysidisi.worldofdayum.field.service.FieldService;
 @Controller
 public class AdventureMapController
 {
-	
+
 	@Autowired
 	private AdventureMapHelper adventureMapHelper;
-
+	
 	@Autowired
 	private AvatarService avatarService;
-
+	
 	@Autowired
 	private BuildingService buildingService;
-	
-	@Autowired
-	private BuildingTypeService buildingTypeService;
 
 	@Autowired
-	private FieldService fieldService;
+	private BuildingTypeService buildingTypeService;
 	
 	@Autowired
+	private FieldService fieldService;
+
+	@Autowired
 	private SimpMessageSendingOperations messagingTemplate;
-	
+
 	@RequestMapping(value = "/adventure/build/{buildingTypeId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.ALL_VALUE)
 	@ResponseBody
-	public ModelAndView build(@PathVariable final BigInteger buildingTypeId)
+	public ModelAndView build(@PathVariable final ObjectId buildingTypeId)
 	{
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
 				"adventure/builModal");
@@ -85,21 +85,21 @@ public class AdventureMapController
 						break;
 					}
 				}
-				
+
 			}
 			modelAndView = new ModelAndView("redirect:/building/" + building.getId() + "/modal");
 		}
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/adventure/mapcluster", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<MapTilePojo> getAdventureMap()
 	{
-		return this.fieldService.getRelativeAdventureMapForAvatar(this.avatarService
-				.getCurrentAvatar());
+		return this.fieldService
+				.getRelativeAdventureMapForAvatar(this.avatarService.getCurrentAvatar());
 	}
-	
+
 	@RequestMapping(value = "/adventure", method = RequestMethod.GET)
 	public ModelAndView getAdventureView()
 	{
@@ -111,10 +111,10 @@ public class AdventureMapController
 		}
 		return modelAndView;
 	}
-
+	
 	@RequestMapping(value = "/adventure/avatars/{avatarId}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ModelAndView getAvatarModal(@PathVariable final BigInteger avatarId)
+	public ModelAndView getAvatarModal(@PathVariable final ObjectId avatarId)
 	{
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
 				"adventure/avatarModal");
@@ -128,14 +128,14 @@ public class AdventureMapController
 		}
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/adventure/avatars", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<AvatarPojo> getAvatars()
 	{
 		return this.avatarService.getAvatarPojosNearAvatar(this.avatarService.getCurrentAvatar());
 	}
-
+	
 	@RequestMapping(value = "/adventure/build", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView getBuildModal()
@@ -150,7 +150,7 @@ public class AdventureMapController
 				this.buildingTypeService.findByRequiredFieldTypeId(field.getFieldTypeId()));
 		return modelAndView;
 	}
-
+	
 	@RequestMapping(value = "/adventure/currentfield", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView getCurrentActions()

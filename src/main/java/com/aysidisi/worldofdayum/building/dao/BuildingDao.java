@@ -1,14 +1,14 @@
 
 package com.aysidisi.worldofdayum.building.dao;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.aysidisi.worldofdayum.building.model.Building;
 
-public interface BuildingDao extends MongoRepository<Building, BigInteger>
+public interface BuildingDao extends MongoRepository<Building, ObjectId>
 {
-	List<Building> findByOwnerAccountId(BigInteger ownerAccountId);
+	List<Building> findByOwnerAccountId(ObjectId ownerAccountId);
 }

@@ -1,9 +1,10 @@
 
 package com.aysidisi.worldofdayum.field.controller;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -25,14 +26,14 @@ public class AreaEditorController
 {
 	@Autowired
 	private FieldTypeService fFieldTypeService;
-
+	
 	@Autowired
 	private FieldService fieldService;
-
+	
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET)
 	public ModelAndView areaEditor()
 	{
-
+		
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
 				"areaeditor/areaEditor");
 		modelAndView.addObject("fieldTypes", this.fFieldTypeService.findAll());
@@ -40,7 +41,7 @@ public class AreaEditorController
 				this.fieldService.getAreaClusterByPositionOfSize(0, 0, 0, 5));
 		return modelAndView;
 	}
-
+	
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, params =
 	{ "x", "y", "areaId", "size" })
 	@ResponseBody
@@ -50,7 +51,7 @@ public class AreaEditorController
 	{
 		return this.fieldService.getAreaClusterByPositionOfSize(x, y, areaId, size);
 	}
-
+	
 	@RequestMapping(value = "/admin/areaeditor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, params =
 	{ "x", "y", "areaId", "fieldTypeId" })
 	@ResponseBody
@@ -65,7 +66,7 @@ public class AreaEditorController
 			field.setPositionY(y);
 			field.setAreaId(areaId);
 		}
-		field.setFieldTypeId(new BigInteger(fieldTypeId));
+		field.setFieldTypeId(new ObjectId(fieldTypeId));
 		this.fieldService.save(field);
 	}
 }

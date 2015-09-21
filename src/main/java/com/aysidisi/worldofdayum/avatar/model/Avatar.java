@@ -1,17 +1,17 @@
 
 package com.aysidisi.worldofdayum.avatar.model;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.aysidisi.worldofdayum.skill.model.Skill;
 
 @Document
 public class Avatar
 {
+
+	private HashMap<ObjectId, Integer> abilities;
 
 	private Integer areaId = 0;
 
@@ -20,12 +20,12 @@ public class Avatar
 	private Integer constitution = 1;
 
 	private Integer dexterity = 1;
-
+	
 	@Id
-	private BigInteger id;
+	private ObjectId id;
 	
 	private Integer intelligence = 1;
-	
+
 	private Integer knowledge = 1;
 
 	private Boolean mainAvatar;
@@ -33,54 +33,59 @@ public class Avatar
 	private Boolean male;
 
 	private String name;
-
-	private BigInteger ownerAccountId;
+	
+	private ObjectId ownerAccountId;
 	
 	private Integer positionX = 0;
-	
+
 	private Integer positionY = 0;
-
-	private HashMap<Skill, AvatarSkill> skills;
-
+	
+	private HashMap<ObjectId, Integer> skills;
+	
 	private Integer strength = 1;
-
+	
 	private Integer willpower = 1;
+	
+	public HashMap<ObjectId, Integer> getAbilities()
+	{
+		return this.abilities;
+	}
 
 	public Integer getAreaId()
 	{
 		return this.areaId;
 	}
-	
+
 	public Integer getCharisma()
 	{
 		return this.charisma;
 	}
-	
+
 	public Integer getConstitution()
 	{
 		return this.constitution;
 	}
-	
+
 	public Integer getDexterity()
 	{
 		return this.dexterity;
 	}
 	
-	public BigInteger getId()
+	public ObjectId getId()
 	{
 		return this.id;
 	}
-
+	
 	public Integer getIntelligence()
 	{
 		return this.intelligence;
 	}
-
+	
 	public Integer getKnowledge()
 	{
 		return this.knowledge;
 	}
-
+	
 	public Boolean getMainAvatar()
 	{
 		return this.mainAvatar;
@@ -90,13 +95,13 @@ public class Avatar
 	{
 		return this.male;
 	}
-	
+
 	public String getName()
 	{
 		return this.name;
 	}
-	
-	public BigInteger getOwnerAccountId()
+
+	public ObjectId getOwnerAccountId()
 	{
 		return this.ownerAccountId;
 	}
@@ -105,13 +110,13 @@ public class Avatar
 	{
 		return this.positionX;
 	}
-
+	
 	public Integer getPositionY()
 	{
 		return this.positionY;
 	}
-
-	public HashMap<Skill, AvatarSkill> getSkills()
+	
+	public HashMap<ObjectId, Integer> getSkills()
 	{
 		return this.skills;
 	}
@@ -126,16 +131,21 @@ public class Avatar
 		return this.willpower;
 	}
 
+	public void setAbilities(final HashMap<ObjectId, Integer> abilities)
+	{
+		this.abilities = abilities;
+	}
+
 	public void setAreaId(final Integer areaId)
 	{
 		this.areaId = areaId;
 	}
-	
+
 	public void setCharisma(final Integer charisma)
 	{
 		this.charisma = charisma;
 	}
-
+	
 	public void setConstitution(final Integer constitution)
 	{
 		this.constitution = constitution;
@@ -146,7 +156,7 @@ public class Avatar
 		this.dexterity = dexterity;
 	}
 
-	public void setId(final BigInteger id)
+	public void setId(final ObjectId id)
 	{
 		this.id = id;
 	}
@@ -155,7 +165,7 @@ public class Avatar
 	{
 		this.intelligence = intelligence;
 	}
-	
+
 	public void setKnowledge(final Integer knowledge)
 	{
 		this.knowledge = knowledge;
@@ -176,7 +186,7 @@ public class Avatar
 		this.name = name;
 	}
 	
-	public void setOwnerAccountId(final BigInteger ownerAccountId)
+	public void setOwnerAccountId(final ObjectId ownerAccountId)
 	{
 		this.ownerAccountId = ownerAccountId;
 	}
@@ -191,11 +201,11 @@ public class Avatar
 		this.positionY = positionY;
 	}
 	
-	public void setSkills(final HashMap<Skill, AvatarSkill> skills)
+	public void setSkills(final HashMap<ObjectId, Integer> skills)
 	{
 		this.skills = skills;
 	}
-
+	
 	public void setStrength(final Integer strength)
 	{
 		this.strength = strength;

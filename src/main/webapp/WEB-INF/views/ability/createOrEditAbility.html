@@ -1,0 +1,107 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td valign="top">
+					<div th:include="views/admin/adminSecNav"></div>
+				</td>
+				<td>
+					<form th:action="@{/admin/skills}" th:method="post">
+						<input type="hidden" th:if="${skill.id != null}" th:value="${skill.id}" name="id"/>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<table>
+							<tr>
+								<td>
+									Name:
+								</td>
+								<td>
+									<input type="text" name="name" th:value="${skill.name}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Type:
+								</td>
+								<td>
+									<select name="skillType">
+										<option th:each="skillType : ${skillTypes}" th:value="${skillType}" th:text="${skillType}" th:selected="${skill.skillType == skillType}"></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									&nbsp;
+								</td>
+								<td>
+									<table>
+									<tr>
+										<td>
+											Stufe
+										</td>
+										<td>
+											EP Schwelle
+										</td>
+									</tr>
+									<tr th:if="${!skill.advancePointsThresholds.empty}" th:each="advancePointsThreshold, advancePointsThresholdStatus : ${skill.advancePointsThresholds}">
+										<td th:text="${advancePointsThresholdStatus.index + 1}">
+										</td>
+										<td>
+											<input class="treshold" th:id="'advancePointsThreshold' + ${advancePointsThresholdStatus.index}" th:name="'advancePointsThresholds[' + ${advancePointsThresholdStatus.index} + ']'" th:value="${advancePointsThreshold}"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<button type="button" id="addTresholdButton">+</button>
+										</td>
+										<td>
+										</td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									&nbsp; 
+								</td>
+								<td>
+									<button type="submit" name="save" value="speichern">Speichern</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(function(){
+	var index = /*[[${skill.advancePointsThresholds.size()}]]*/;
+	$("#addTresholdButton").click(function(){
+		$("#addTresholdButton").parent().parent().before("<tr><td>" + (index+1) + "</td><td><input class='treshold' onchange='sortValues()' id='advancePointsThreshold" + (index) + "' name='advancePointsThresholds[" + (index)+ "]'/></td></tr>");
+		index++;
+		return false;
+	});
+	$(".treshold").change(function(){
+		sortValues();
+	});
+})
+
+function sortValues()
+{
+	var values = []; 
+	$(".treshold").each(function(index, input){ 
+		values[index] = $(input).val();
+	});
+	values.sort(sortNumber);
+	$(values).each(function(index, value){
+		$("#advancePointsThreshold" + index).val(value);
+	});	
+}
+
+function sortNumber(a,b) {
+    return a - b;
+}
+/*]]>*/
+</script>

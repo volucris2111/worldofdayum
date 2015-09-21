@@ -1,0 +1,35 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td valign="top">
+					<div th:include="views/admin/adminSecNav"></div>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<th>
+								Gebäudename
+							</th>
+							<th>
+								Bild
+							</th>
+							<th>
+								<a th:href="@{/admin/buildingtypes/?create}"><button type="button">Neu</button></a>
+							</th>
+						</tr>
+						<tr th:each="buildingType : ${buildingTypes}">
+							<td th:text="${buildingType.name}"></td>
+							<td>
+								<div th:style="'background-image: url('+@{/resources/images/building.png}+'); background-position: -'+${buildingType.sheetPositionX}+'px -'+${buildingType.sheetPositionY}+'px; height: 130px; width: 130px;'"></div>
+							</td>
+							<td>
+								<a th:href="@{'/admin/buildingtypes/' + ${buildingType.id} + '/?edit'}"><button type="button">Edit</button></a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

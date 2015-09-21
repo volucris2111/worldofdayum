@@ -1,8 +1,7 @@
 
 package com.aysidisi.worldofdayum.fieldtype.controller;
 
-import java.math.BigInteger;
-
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,15 +19,15 @@ public class CreateAndEditFieldTypeController
 {
 	@Autowired
 	private FieldTypeService fieldTypeService;
-	
+
 	@RequestMapping(value = "/admin/fieldtypes/", method = RequestMethod.GET, params = "create")
 	public ModelAndView create()
 	{
 		return this.initView(new FieldType());
 	}
-	
+
 	@RequestMapping(value = "/admin/fieldtypes/{fieldTypeId}", method = RequestMethod.GET, params = "edit")
-	public ModelAndView edit(@PathVariable final BigInteger fieldTypeId)
+	public ModelAndView edit(@PathVariable final ObjectId fieldTypeId)
 	{
 		FieldType fieldType = this.fieldTypeService.findById(fieldTypeId);
 		if (fieldType == null)
@@ -37,7 +36,7 @@ public class CreateAndEditFieldTypeController
 		}
 		return this.initView(fieldType);
 	}
-
+	
 	@RequestMapping(value = "/admin/fieldtypes", method = RequestMethod.POST)
 	public ModelAndView save(final FieldType fieldType)
 	{
@@ -52,7 +51,7 @@ public class CreateAndEditFieldTypeController
 		}
 		return modelAndView;
 	}
-
+	
 	private ModelAndView initView(final FieldType fieldType)
 	{
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
@@ -60,10 +59,10 @@ public class CreateAndEditFieldTypeController
 		modelAndView.addObject("fieldType", fieldType);
 		return modelAndView;
 	}
-	
+
 	private boolean validateFieldType(final FieldType fieldType)
 	{
 		return false;
 	}
-	
+
 }

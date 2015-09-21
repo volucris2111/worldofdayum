@@ -1,0 +1,27 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<th>
+					Avatar
+				</th>
+				<th>
+					&nbsp;
+				</th>
+				<th>
+					&nbsp;
+				</th>
+			</tr>
+			<tr th:each="avatar : ${avatars}">
+				<td th:text="${avatar.name}">
+					</td>
+				<td>
+					<a th:href="@{/avatars/} + ${avatar.id}"><button>Details</button></a>
+				</td>
+				<td>
+					<a th:href="@{/avatars/select/} + ${avatar.id}"><button>Auswählen</button></a>
+				</td>
+			</tr>		
+		</table>
+	</body>
+</html>

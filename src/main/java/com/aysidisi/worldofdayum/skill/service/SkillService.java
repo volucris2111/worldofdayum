@@ -1,9 +1,9 @@
 
 package com.aysidisi.worldofdayum.skill.service;
 
-import java.math.BigInteger;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class SkillService
 	@Autowired
 	private SkillDao skillDao;
 
-	public Skill findOne(final BigInteger skillId)
+	public Skill findOne(final ObjectId skillId)
 	{
 		return this.skillDao.findOne(skillId);
 	}

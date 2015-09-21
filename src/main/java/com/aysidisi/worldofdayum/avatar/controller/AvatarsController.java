@@ -20,10 +20,10 @@ import com.aysidisi.worldofdayum.avatar.service.AvatarService;
 @Controller
 public class AvatarsController
 {
-
+	
 	@Autowired
 	private AvatarService avatarService;
-	
+
 	@RequestMapping(value = "/avatars", method = RequestMethod.GET)
 	public ModelAndView avatarList()
 	{

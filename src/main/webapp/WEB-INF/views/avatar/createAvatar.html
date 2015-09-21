@@ -1,0 +1,36 @@
+<html>
+	<body>
+		<form th:action="@{/avatars}" th:method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<table>
+				<tr>
+					<td>
+						Name:
+					</td>
+					<td>
+						 <input type="text" name="name" th:value="${avatar.name}"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Geschlecht:
+					</td>
+					<td>
+						<select name="male" th:value="${avatar.male}">
+							<option value="true">Männlich</option>
+							<option value="false">Weiblich</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						<button type="submit" name="save" value="speichern">Registrieren</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

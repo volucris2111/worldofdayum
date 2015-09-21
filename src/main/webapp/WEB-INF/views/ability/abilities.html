@@ -1,0 +1,33 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td valign="top">
+					<div th:include="views/admin/adminSecNav"></div> 
+				</td>
+				<td>
+					<table>
+						<tr>
+							<th>
+								Fähigkeit
+							</th>
+							<th>
+								Type
+							</th>
+							<th>
+								<a th:href="@{/admin/abilities/?create}"><button type="button">Neu</button></a>
+							</th>
+						</tr>
+						<tr th:each="ability : ${abilities}">
+							<td th:text="${ability.name}"></td>
+							<td th:text="${ability.adependentSkill.name}"></td>
+							<td>
+								<a th:href="@{'/admin/abilities/' + ${ability.id}+ '/?edit'}"><button type="button">Edit</button></a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

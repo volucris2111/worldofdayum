@@ -1,0 +1,67 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td valign="top">
+					<div th:include="views/admin/adminSecNav"></div> 
+				</td>
+				<td>
+					<form th:action="@{/admin/fieldtypes}" th:method="post">
+						<input type="hidden" th:if="${fieldType.id != null}" th:value="${fieldType.id}" name="id"/>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<table>
+							<tr>
+								<td>
+									Name:
+								</td>
+								<td>
+									<input type="text" name="name" th:value="${fieldType.name}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									SheetPositionX:
+								</td>
+								<td>
+									<input type="text" name="sheetPositionX" th:value="${fieldType.sheetPositionX}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									SheetPositionY:
+								</td>
+								<td>
+									<input type="text" name="sheetPositionY" th:value="${fieldType.sheetPositionY}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Begehbar:
+								</td>
+								<td>
+									<input type="checkbox" name="walkable" th:checked="${fieldType.walkable}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Bewegungsgeschwindigkeit:
+								</td>
+								<td>
+									<input type="text" name="movementSpeed" th:value="${fieldType.movementSpeed}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									&nbsp;
+								</td>
+								<td>
+									<button type="submit" name="save" value="speichern">Speichern</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -1,10 +1,11 @@
 
 package com.aysidisi.worldofdayum.skill.controller;
 
-import java.math.BigInteger;
+import java.util.LinkedList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class CreateAndEditSkillController
 	}
 	
 	@RequestMapping(value = "/admin/skills/{skillId}", method = RequestMethod.GET, params = "edit")
-	public ModelAndView edit(@PathVariable final BigInteger skillId)
+	public ModelAndView edit(@PathVariable final ObjectId skillId)
 	{
 		Skill skill = this.skillService.findOne(skillId);
 		if (skill == null)
@@ -45,6 +46,13 @@ public class CreateAndEditSkillController
 	public ModelAndView save(final Skill skill, final HttpServletRequest request)
 	{
 		ModelAndView modelAndView = new ModelAndView("redirect:/admin/skills");
+		if (skill.getAdvancePointsThresholds() != null)
+		{
+			while (skill.getAdvancePointsThresholds().contains(null))
+			{
+				skill.getAdvancePointsThresholds().remove(null);
+			}
+		}
 		if (this.validateSkill(skill))
 		{
 			modelAndView = this.initView(skill);
@@ -60,8 +68,11 @@ public class CreateAndEditSkillController
 	{
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
 				"skill/createOrEditSkill");
+		if (skill.getAdvancePointsThresholds() == null)
+		{
+			skill.setAdvancePointsThresholds(new LinkedList<Integer>());
+		}
 		skill.getAdvancePointsThresholds().sort((e1, e2) -> e1.compareTo(e2));
-
 		modelAndView.addObject("skill", skill);
 		modelAndView.addObject("skillTypes", SkillType.values());
 		return modelAndView;
