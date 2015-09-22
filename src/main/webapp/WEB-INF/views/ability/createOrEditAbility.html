@@ -6,8 +6,8 @@
 					<div th:include="views/admin/adminSecNav"></div>
 				</td>
 				<td>
-					<form th:action="@{/admin/skills}" th:method="post">
-						<input type="hidden" th:if="${skill.id != null}" th:value="${skill.id}" name="id"/>
+					<form th:action="@{/admin/abilities}" th:method="post">
+						<input type="hidden" th:if="${ability.id != null}" th:value="${ability.id}" name="id"/>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<table>
 							<tr>
@@ -15,7 +15,7 @@
 									Name:
 								</td>
 								<td>
-									<input type="text" name="name" th:value="${skill.name}"/>
+									<input type="text" name="name" th:value="${ability.name}"/>
 								</td>
 							</tr>
 							<tr>
@@ -23,9 +23,9 @@
 									Type:
 								</td>
 								<td>
-									<select name="skillType">
-										<option th:each="skillType : ${skillTypes}" th:value="${skillType}" th:text="${skillType}" th:selected="${skill.skillType == skillType}"></option>
-									</select>
+<!-- 									<select name="skillType"> -->
+<!-- 										<option th:each="skillType : ${skillTypes}" th:value="${skillType}" th:text="${skillType}" th:selected="${skill.skillType == skillType}"></option> -->
+<!-- 									</select> -->
 								</td>
 							</tr>
 							<tr>
@@ -42,7 +42,7 @@
 											EP Schwelle
 										</td>
 									</tr>
-									<tr th:if="${!skill.advancePointsThresholds.empty}" th:each="advancePointsThreshold, advancePointsThresholdStatus : ${skill.advancePointsThresholds}">
+									<tr th:if="${!ability.advancePointsThresholds.empty}" th:each="advancePointsThreshold, advancePointsThresholdStatus : ${ability.advancePointsThresholds}">
 										<td th:text="${advancePointsThresholdStatus.index + 1}">
 										</td>
 										<td>
@@ -77,7 +77,7 @@
 <script th:inline="javascript">
 /*<![CDATA[*/
 $(function(){
-	var index = /*[[${skill.advancePointsThresholds.size()}]]*/;
+	var index = /*[[${ability.advancePointsThresholds.size()}]]*/;
 	$("#addTresholdButton").click(function(){
 		$("#addTresholdButton").parent().parent().before("<tr><td>" + (index+1) + "</td><td><input class='treshold' onchange='sortValues()' id='advancePointsThreshold" + (index) + "' name='advancePointsThresholds[" + (index)+ "]'/></td></tr>");
 		index++;

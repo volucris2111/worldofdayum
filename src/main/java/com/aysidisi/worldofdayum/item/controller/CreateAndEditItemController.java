@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aysidisi.plainspringwebapp.web.core.ViewManager;
 import com.aysidisi.plainspringwebapp.web.core.ViewTemplate;
 import com.aysidisi.worldofdayum.item.model.Item;
+import com.aysidisi.worldofdayum.item.model.ItemType;
 import com.aysidisi.worldofdayum.item.service.ItemService;
 
 @Controller
@@ -59,6 +60,7 @@ public class CreateAndEditItemController
 		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.mainTemplate,
 				"item/createOrEditItem");
 		modelAndView.addObject("item", item);
+		modelAndView.addObject("itemTypes", ItemType.values());
 		return modelAndView;
 	}
 	

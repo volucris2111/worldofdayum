@@ -1,0 +1,61 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td valign="top">
+					<div th:include="views/admin/adminSecNav"></div>
+				</td>
+				<td>
+					<form th:action="@{/admin/items}" th:method="post">
+						<input type="hidden" th:if="${item.id != null}" th:value="${item.id}" name="id"/>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<table>
+							<tr>
+								<td>
+									Name:
+								</td>
+								<td>
+									<input type="text" name="name" th:value="${item.name}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Type:
+								</td>
+								<td>
+									<select name="itemType">
+										<option th:each="itemType : ${itemTypes}" th:value="${itemType}" th:text="${itemType}" th:selected="${item.itemType == itemType}"></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Stapelgröße:
+								</td>
+								<td>
+									<input type="text" name="stackSize" th:value="${item.stackSize}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Gewicht:
+								</td>
+								<td>
+									<input type="text" name="weight" th:value="${item.weight}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									&nbsp; 
+								</td>
+								<td>
+									<button type="submit" name="save" value="speichern">Speichern</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
